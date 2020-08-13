@@ -19,7 +19,7 @@ npm install
 ```
 npm run serve
 
-It is recommended to install Vue CLI and run and debug the project going to src folder and running this command:
+#### It is recommended to install Vue CLI and run and debug the project going to src folder and running this command:
 
 ```
 vue serve -o
@@ -30,7 +30,7 @@ vue serve -o
 npm run build
 ```
 
-or using  Vue CLI:
+#### or using  Vue CLI:
 
 ```
 vue build
