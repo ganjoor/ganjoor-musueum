@@ -18,6 +18,7 @@ npm install
 ### Compiles and hot-reloads for development
 ```
 npm run serve
+```
 
 #### It is recommended to install Vue CLI and run and debug the project going to src folder and running this command:
 
