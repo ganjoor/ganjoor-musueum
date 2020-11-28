@@ -212,7 +212,7 @@ export default {
         this.processing = true;
         axios({
           method: "GET",
-          url: this.appConfig.$api_url + "/api/artifacts/notifications/unread/count",
+          url: this.appConfig.$api_url + "/api/notifications/unread/count",
           data: {},
           headers: {
             "content-type": "application/json",
