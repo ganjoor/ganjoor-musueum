@@ -34,7 +34,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="green" @click="markAllRead()">همه را خواندم<v-icon color="white" left>done_all</v-icon></v-btn>
-                        <v-btn color="red" @click="deleteAll()">حذف همه<v-icon color="white" left>delete</v-icon></v-btn>
+                        <v-btn color="red" @click="deleteAll()">حذف همهٔ خوانده شده‌ها<v-icon color="white" left>delete</v-icon></v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -73,7 +73,7 @@
                 this.loading = true;
                 this.errorMsg = '';
                 axios({
-                    method: "GET", "url": this.appConfig.$api_url + "/api/artifacts/notifications", "data": {},
+                    method: "GET", "url": this.appConfig.$api_url + "/api/notifications", "data": {},
                     "headers":
                     {
                         "content-type": "application/json",
@@ -96,7 +96,7 @@
                 this.loading = true;
                 this.errorMsg = '';
                 axios({
-                    method: "PUT", "url": this.appConfig.$api_url + "/api/artifacts/notifications/" + notification.id, "data": {},
+                    method: "PUT", "url": this.appConfig.$api_url + "/api/notifications/" + notification.id, "data": {},
                     "headers":
                     {
                         "content-type": "application/json",
@@ -115,6 +115,30 @@
                     this.switchReadStatus(notification);
                  }           
             },
+            markAllRead() {
+                  if (!confirm('آیا از علامت زدن همهٔ اعلانات به عنوان خوانده شده اطمینان دارید؟')) {
+                    return;
+                  } 
+                  this.loading = true;
+                this.errorMsg = '';
+                axios({
+                    method: "PUT", "url": this.appConfig.$api_url + "/api/notifications//api/notifications/allread" , "data": {},
+                    "headers":
+                    {
+                        "content-type": "application/json",
+                        "authorization": "bearer " + this.userInfo.token
+                    }
+                }).then(result => 
+                {
+                    this.loading = false;
+                    if(result){
+                       this.loadNotifications();
+                    }
+                    EventBus.$emit('user-logged-in', this.userInfo); //refresh unread notifications count
+                }, error => {
+                    this.errorMsg = axiosErrorHandler.handle(error);
+                });     
+            },
             deleteNotification(notification, ask) {
                 if (ask) {
                     if (!confirm('آیا از حذف این اعلان اطمینان دارید؟')) {
@@ -125,7 +149,7 @@
                 this.loading = true;
                 this.errorMsg = '';
                 axios({
-                    method: "DELETE", "url": this.appConfig.$api_url + "/api/artifacts/notifications/" + notification.id, "data": {},
+                    method: "DELETE", "url": this.appConfig.$api_url + "/api/notifications/" + notification.id, "data": {},
                     "headers":
                     {
                         "content-type": "application/json",
@@ -141,20 +165,28 @@
                     this.errorMsg = axiosErrorHandler.handle(error);
                 });
             },
-            markAllRead() {
-                //doing it one by one on client to prevent marking unseen notifications as read
-                for (var i = 0; i < this.notifications.length; i++) {
-                    this.markAsRead(this.notifications[i]);                   
-                }
-            },
             deleteAll() {
-                 if (!confirm('آیا از حذف همهٔ اعلانها اطمینان دارید؟')) {
+                 if (!confirm('آیا از حذف همهٔ اعلانهای خوانده شده اطمینان دارید؟.')) {
                     return;
                 }
-                //doing it one by one on client to prevent deleting unseen notifications
-                for (var i = 0; i < this.notifications.length; i++) {
-                    this.deleteNotification(this.notifications[i], false);
-                }
+                this.loading = true;
+                this.errorMsg = '';
+                axios({
+                    method: "DELETE", "url": this.appConfig.$api_url + "/api/notifications/", "data": {},
+                    "headers":
+                    {
+                        "content-type": "application/json",
+                        "authorization": "bearer " + this.userInfo.token
+                    }
+                }).then(() => {
+                    this.notifications = this.notifications.filter(function (value) {
+                                return value.status != 0;
+                            });          
+                    this.loading = false;
+                    EventBus.$emit('user-logged-in', this.userInfo); //refresh unread notifications count
+                }, error => {
+                    this.errorMsg = axiosErrorHandler.handle(error);
+                });
             }
         }
         
