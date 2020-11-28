@@ -122,7 +122,7 @@
                   this.loading = true;
                 this.errorMsg = '';
                 axios({
-                    method: "PUT", "url": this.appConfig.$api_url + "/api/notifications//api/notifications/allread" , "data": {},
+                    method: "PUT", "url": this.appConfig.$api_url + "/api/notifications/allread" , "data": {},
                     "headers":
                     {
                         "content-type": "application/json",
