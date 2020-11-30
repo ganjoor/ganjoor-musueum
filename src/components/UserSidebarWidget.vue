@@ -180,7 +180,7 @@ export default {
         usernameRules: [v => !!v || "لطفا ایمیل خود را وارد نمایید", v => /.+@.+\..+/.test(v) || "ایمیل وارد شده معتبر نیست"],
         password: "",
         passwordRules: [v => !!v || "لطفا کلمه عبور خود را وارد نمایید"],
-        clientAppName: "گنجینه گنجور",
+        clientAppName: "Museum Clinet Web UI",
         language: "fa-IR",
       },
       userInfo: null,

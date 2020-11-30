@@ -24,7 +24,7 @@
                 input: {
                     username: "admin",
                     password: "Test!123",
-                    clientAppName: "Vue.js Client App",
+                    clientAppName: "Museum Clinet Web UI",
                     language: "fa-IR"
                 },
                 userInfo: null,

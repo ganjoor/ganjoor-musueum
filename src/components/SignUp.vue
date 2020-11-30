@@ -309,7 +309,7 @@ export default {
         data: {
           username: this.email,
           password: this.password,
-          clientAppName: "Vue.js Client App",
+          clientAppName: "Museum Clinet Web UI",
           language: "fa-IR",
         },
         headers: { "content-type": "application/json" },
