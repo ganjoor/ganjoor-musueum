@@ -207,6 +207,7 @@ export default {
           language: "fa-IR",
           captchaImageId: this.captchaImageId,
           captchaValue: this.captcha,
+          callbackUrl: 'https://museum.ganjoor.net/signup'
         },
         headers: {
           "content-type": "application/json",

@@ -188,6 +188,7 @@ export default {
           language: "fa-IR",
           captchaImageId: this.captchaImageId,
           captchaValue: this.captcha,
+          callbackUrl: 'https://museum.ganjoor.net/forgot-password'
         },
         headers: {
           "content-type": "application/json",
