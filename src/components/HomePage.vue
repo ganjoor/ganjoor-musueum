@@ -166,7 +166,7 @@
             loadArtifacts() {
                 this.loading = true;
                 if (this.userInfo == null) {
-                    axios({ method: "GET", "url": this.appConfig.$api_url + "/api/artifacts?PageNumber=1&PageSize=6", "data": {}, "headers": { "content-type": "application/json" } }).then(result => {             
+                    axios({ method: "GET", "url": this.appConfig.$api_url + "/api/artifacts?PageNumber=1&PageSize=5", "data": {}, "headers": { "content-type": "application/json" } }).then(result => {             
                     this.handleArtifactsResults(result);                 
                     }, error => {
                     this.handleArtifactsError(error);    
@@ -174,7 +174,7 @@
                 }
                 else {
                     axios({
-                        method: "GET", "url": this.appConfig.$api_url + "/api/artifacts/secure?PageNumber=1&PageSize=6", "data": {},
+                        method: "GET", "url": this.appConfig.$api_url + "/api/artifacts/secure?PageNumber=1&PageSize=5", "data": {},
                         "headers":
                         {
                             "content-type": "application/json",
@@ -208,7 +208,7 @@
                     });         
             },     
             handleAuthorsResults(result) {
-                this.authors = result.data.values.splice(0, 6);
+                this.authors = result.data.values.splice(0, 5);
                 this.loadingAuthors = false;
             },      
             loadBooks() {
@@ -227,7 +227,7 @@
                     });         
             },          
             handleBooksResults(result) {
-                this.books = result.data.values.splice(0, 6);
+                this.books = result.data.values.splice(0, 5);
                 this.loadingBooks = false;
             },          
 
