@@ -1,7 +1,7 @@
 ﻿let config;
 
 config = {
-    $api_url: "http://localhost:3439",
+    $api_url: "https://ganjgah.ir",
 };
 
 export { config }
