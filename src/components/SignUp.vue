@@ -8,50 +8,104 @@
           </v-alert>
         </v-card>
       </v-flex>
-      <v-layout justify-space-around v-if="userInfo === null && !verifying && !finalizing && !processing && !finalized" color="primary">
+      <v-layout
+        justify-space-around
+        v-if="
+          userInfo === null &&
+          !verifying &&
+          !finalizing &&
+          !processing &&
+          !finalized
+        "
+        color="primary"
+      >
         <v-card>
           <v-form ref="form" v-model="step1Valid" lazy-validation>
             <v-card-text>
               <p>لطفا پست الکترونیکی خود را جهت ثبت نام وارد کنید:</p>
             </v-card-text>
             <v-card-text>
-              <v-text-field class="ltrinput" prepend-inner-icon="email" v-model="email" :rules="emailRules" label="پست الکترونیکی" required></v-text-field>
+              <v-text-field
+                class="ltrinput"
+                prepend-inner-icon="email"
+                v-model="email"
+                :rules="emailRules"
+                label="پست الکترونیکی"
+                required
+              ></v-text-field>
             </v-card-text>
             <v-card-text>
-              <v-img v-if="captchaImageId != ''" :src="`${appConfig.$api_url}/api/rimages/${captchaImageId}.jpg`" max-width="50px" max-height="30px" class="lighten-2"> </v-img>
+              <v-img
+                v-if="captchaImageId != ''"
+                :src="`${appConfig.$api_url}/api/rimages/${captchaImageId}.jpg`"
+                max-width="50px"
+                max-height="30px"
+                class="lighten-2"
+              >
+              </v-img>
             </v-card-text>
             <v-card-text>
               <p>
                 عددی را که در تصویر امنیتی بالا می‌بینید در کادر زیر وارد کنید:
               </p>
-              <v-text-field class="ltrinput" prepend-inner-icon="lock" v-model="captcha" :rules="captchaRules" label="عدد تصویر امنیتی" required></v-text-field>
+              <v-text-field
+                class="ltrinput"
+                prepend-inner-icon="lock"
+                v-model="captcha"
+                :rules="captchaRules"
+                label="عدد تصویر امنیتی"
+                required
+              ></v-text-field>
             </v-card-text>
             <v-card-text>
-              <v-btn color="success" :disabled="!step1Valid" class="mr-4" v-on:click="signup()">ادامه</v-btn>
+              <v-btn
+                color="success"
+                :disabled="!step1Valid"
+                class="mr-4"
+                v-on:click="signup()"
+                >ادامه</v-btn
+              >
             </v-card-text>
           </v-form>
         </v-card>
       </v-layout>
-      <v-layout justify-space-around v-if="verifying && !processing" color="primary">
+      <v-layout
+        justify-space-around
+        v-if="verifying && !processing"
+        color="primary"
+      >
         <v-form ref="form2" v-model="step2Valid" lazy-validation>
           <v-card>
             <v-card-text>
               <p>
-                لطفا پست الکترونیکی خود را چک کنید. در صورتی که نشانی پست الکترونیکی خود را درست وارد کرده باشید نامه‌ای از گنجینهٔ گنجور دریافت کرده‌اید که حاوی یک رمز است.
+                لطفا پست الکترونیکی خود را چک کنید. در صورتی که نشانی پست
+                الکترونیکی خود را درست وارد کرده باشید نامه‌ای از گنجینهٔ گنجور
+                دریافت کرده‌اید که حاوی یک رمز است.
               </p>
 
               <p>
-                یا روی نشانی ارسال شده به پست الکترونیکی خود کلیک کنید یا رمز دریافتی را در کادر زیر وارد کرده روی دکمهٔ «ادامه» کلیک کنید.
+                یا روی نشانی ارسال شده به پست الکترونیکی خود کلیک کنید یا رمز
+                دریافتی را در کادر زیر وارد کرده روی دکمهٔ «ادامه» کلیک کنید.
               </p>
-              <p>
-                تذکر: ممکن است نامه به پوشه اسپم منتقل شده باشد.
-              </p>
+              <p>تذکر: ممکن است نامه به پوشه اسپم منتقل شده باشد.</p>
             </v-card-text>
             <v-card-text>
-              <v-text-field class="ltrinput" prepend-inner-icon="lock" v-model="secret" :rules="secretRules" label="رمز دریافتی" required></v-text-field>
+              <v-text-field
+                class="ltrinput"
+                prepend-inner-icon="lock"
+                v-model="secret"
+                :rules="secretRules"
+                label="رمز دریافتی"
+                required
+              ></v-text-field>
             </v-card-text>
             <v-card-text>
-              <v-btn color="success" :disabled="!step2Valid" v-on:click="verify()">ادامه</v-btn>
+              <v-btn
+                color="success"
+                :disabled="!step2Valid"
+                v-on:click="verify()"
+                >ادامه</v-btn
+              >
             </v-card-text>
             <v-card-text>
               <img src="../assets/images/signup-email1.png" />
@@ -60,7 +114,11 @@
           </v-card>
         </v-form>
       </v-layout>
-      <v-layout justify-space-around v-if="finalizing && !processing" color="primary">
+      <v-layout
+        justify-space-around
+        v-if="finalizing && !processing"
+        color="primary"
+      >
         <v-form ref="form3" v-model="step3Valid" lazy-validation>
           <v-card>
             <v-card-text>
@@ -69,27 +127,58 @@
               </p>
             </v-card-text>
             <v-card-text>
-              <v-text-field prepend-inner-icon="person" v-model="firstName" :rules="firstNameRules" required label="نام"></v-text-field>
+              <v-text-field
+                prepend-inner-icon="person"
+                v-model="firstName"
+                :rules="firstNameRules"
+                required
+                label="نام"
+              ></v-text-field>
             </v-card-text>
             <v-card-text>
-              <v-text-field prepend-inner-icon="person" v-model="sureName" label="نام خانوادگی"></v-text-field>
+              <v-text-field
+                prepend-inner-icon="person"
+                v-model="sureName"
+                label="نام خانوادگی"
+              ></v-text-field>
             </v-card-text>
             <v-card-text>
               <p>
-                گذرواژه باید دست کم شامل ۶ حرف باشد و از ترکیبی از اعداد و حروف انگلیسی تشکیل شده باشد.
+                گذرواژه باید دست کم شامل ۶ حرف باشد و از ترکیبی از اعداد و حروف
+                انگلیسی تشکیل شده باشد.
               </p>
               <p>
-                حروف و اعداد نباید تکراری باشند و وجود حداقل یک عدد و یک حرف کوچک انگلیسی در گذرواژه الزامی است.
+                حروف و اعداد نباید تکراری باشند و وجود حداقل یک عدد و یک حرف
+                کوچک انگلیسی در گذرواژه الزامی است.
               </p>
             </v-card-text>
             <v-card-text>
-              <v-text-field prepend-inner-icon="lock" v-model="password" :rules="passwordRules" type="password" label="گذرواژه دلخواه" required></v-text-field>
+              <v-text-field
+                prepend-inner-icon="lock"
+                v-model="password"
+                :rules="passwordRules"
+                type="password"
+                label="گذرواژه دلخواه"
+                required
+              ></v-text-field>
             </v-card-text>
             <v-card-text>
-              <v-text-field prepend-inner-icon="lock" v-model="confirm" :rules="passwordRules" type="password" label="تکرار گذرواژه" required></v-text-field>
+              <v-text-field
+                prepend-inner-icon="lock"
+                v-model="confirm"
+                :rules="passwordRules"
+                type="password"
+                label="تکرار گذرواژه"
+                required
+              ></v-text-field>
             </v-card-text>
             <v-card-text>
-              <v-btn color="success" :disabled="!step3Valid" v-on:click="finalize()">ادامه</v-btn>
+              <v-btn
+                color="success"
+                :disabled="!step3Valid"
+                v-on:click="finalize()"
+                >ادامه</v-btn
+              >
             </v-card-text>
           </v-card>
         </v-form>
@@ -100,7 +189,13 @@
       <v-layout justify-space-around v-if="finalized" color="primary">
         <v-card>
           <router-link to="/">
-            <v-btn color="green" class="ma-2 white--text" @click="signin"> تبریک! ثبت نام تکمیل شد. برای ورود به سیستم کلیک کنید. ‌<v-icon right dark>done</v-icon> </v-btn>
+            <v-btn color="green" class="ma-2 white--text" @click="signin">
+              تبریک! ثبت نام تکمیل شد. برای ورود به سیستم کلیک کنید. ‌<v-icon
+                right
+                dark
+                >done</v-icon
+              >
+            </v-btn>
           </router-link>
         </v-card>
       </v-layout>
@@ -127,18 +222,30 @@ export default {
       step1Valid: true,
       captchaImageId: "",
       email: "",
-      emailRules: [v => !!v || "لطفا ایمیل خود را وارد نمایید", v => /.+@.+\..+/.test(v) || "ایمیل وارد شده معتبر نیست"],
+      emailRules: [
+        (v) => !!v || "لطفا ایمیل خود را وارد نمایید",
+        (v) => /.+@.+\..+/.test(v) || "ایمیل وارد شده معتبر نیست",
+      ],
       captcha: "",
-      captchaRules: [v => !!v || "مقدار تصویر فوق را وارد نمایید", v => (v && v.length == 5) || "عددی امنیتی پنج رقم می باشد"],
+      captchaRules: [
+        (v) => !!v || "مقدار تصویر فوق را وارد نمایید",
+        (v) => (v && v.length == 5) || "عددی امنیتی پنج رقم می باشد",
+      ],
       step2Valid: true,
       secret: "",
-      secretRules: [v => !!v || "رمز دریافتی را وارد نمایید", v => (v && v.length > 4) || "رمز دریافتی حداقل پنج کاراکتر می باشد"],
+      secretRules: [
+        (v) => !!v || "رمز دریافتی را وارد نمایید",
+        (v) => (v && v.length > 4) || "رمز دریافتی حداقل پنج کاراکتر می باشد",
+      ],
       step3Valid: true,
       firstName: "",
-      firstNameRules: [v => !!v || "لطفا یک نام برای خود انتخاب نمایید"],
+      firstNameRules: [(v) => !!v || "لطفا یک نام برای خود انتخاب نمایید"],
       sureName: "",
       password: "",
-      passwordRules: [v => !!v || "کلمه عبور خود را وارد نمایید", v => (v && v.length > 5) || "کلمه عبور حداقل شش کاراکتر می باشد"],
+      passwordRules: [
+        (v) => !!v || "کلمه عبور خود را وارد نمایید",
+        (v) => (v && v.length > 5) || "کلمه عبور حداقل شش کاراکتر می باشد",
+      ],
       confirm: "",
       userInfo: null,
       errorMsg: "",
@@ -180,11 +287,11 @@ export default {
         data: {},
         headers: { "content-type": "application/json" },
       }).then(
-        result => {
+        (result) => {
           this.captchaImageId = result.data;
           this.processing = false;
         },
-        error => {
+        (error) => {
           this.processing = false;
           if (error.response && error.response.data) {
             this.errorMsg = error.response.data;
@@ -210,17 +317,18 @@ export default {
           language: "fa-IR",
           captchaImageId: this.captchaImageId,
           captchaValue: this.captcha,
-          callbackUrl: 'https://museum.ganjoor.net/signup'
+          callbackUrl: "https://museum.ganjoor.net/signup",
         },
         headers: {
           "content-type": "application/json",
         },
       }).then(
-        () => {
+        (nextstep) => {
           this.processing = false;
-          this.verifying = true;
+          this.verifying = nextstep.data == "verify";
+          this.finalizing = nextstep.data == "finalize";
         },
-        error => {
+        (error) => {
           this.newcaptcha();
           this.processing = false;
           if (error.response && error.response.data) {
@@ -240,19 +348,22 @@ export default {
       this.errorMsg = "";
       axios({
         method: "GET",
-        url: this.appConfig.$api_url + "/api/users/verify?type=0&secret=" + this.secret,
+        url:
+          this.appConfig.$api_url +
+          "/api/users/verify?type=0&secret=" +
+          this.secret,
         data: {},
         headers: {
           "content-type": "application/json",
         },
       }).then(
-        result => {
+        (result) => {
           this.processing = false;
           this.verifying = false;
           this.finalizing = true;
           this.email = result.data;
         },
-        error => {
+        (error) => {
           this.processing = false;
           if (error.response && error.response.data) {
             this.errorMsg = error.response.data;
@@ -293,7 +404,7 @@ export default {
           this.finalizing = false;
           this.finalized = true;
         },
-        error => {
+        (error) => {
           this.processing = false;
           if (error.response && error.response.data) {
             this.errorMsg = error.response.data;
@@ -317,14 +428,14 @@ export default {
         },
         headers: { "content-type": "application/json" },
       }).then(
-        result => {
+        (result) => {
           localStorage.setItem("userInfo", JSON.stringify(result.data));
           this.userInfo = result.data;
           EventBus.$emit("user-logged-in", this.userInfo);
           this.processing = false;
           this.$router.push("/");
         },
-        error => {
+        (error) => {
           this.processing = false;
           if (error.response && error.response.data) {
             this.errorMsg = error.response.data;
