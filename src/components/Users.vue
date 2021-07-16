@@ -40,6 +40,20 @@
             <v-toolbar flat color="white">
               <v-toolbar-title>مدیریت کاربران</v-toolbar-title>
               <div class="flex-grow-1"></div>
+              <v-text-field
+                label="جستجوی ایمیل"
+                v-model="filterByEmail"
+              ></v-text-field>
+              <v-btn
+                class="mx-2"
+                fab
+                dark
+                x-small
+                color="indigo"
+                @click="enumerateUsers"
+              >
+                <v-icon dark>search</v-icon>
+              </v-btn>
             </v-toolbar>
           </template>
           <template v-slot:expanded-item="{ headers }">
@@ -131,6 +145,7 @@ export default {
       pageNumber: 1,
       totalUsers: 0,
       loading: true,
+      filterByEmail: "",
     };
   },
   mounted() {
@@ -158,7 +173,9 @@ export default {
           "/api/users?PageNumber=" +
           this.pageNumber +
           "&PageSize=" +
-          this.pageSize,
+          this.pageSize +
+          "&filterByEmail=" +
+          this.filterByEmail,
         data: {},
         headers: {
           authorization: "bearer " + this.userInfo.token,
