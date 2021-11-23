@@ -15,23 +15,24 @@ import AllPublicNotes from './components/AllPublicNotes.vue';
 import GanjoorFrame from './components/GanjoorFrame.vue';
 import GanjoorLinks from './components/GanjoorLinks.vue';
 import Notifications from './components/Notifications.vue';
-import Events from './components/Events.vue'; 
+import Events from './components/Events.vue';
 import PinterestLinks from './components/PinterestLinks.vue';
 import MixUtils from './components/MixUtils.vue';
+import ReportedNotes from './components/ReportedNotes.vue';
 
 export const routes = [
     {
         path: '/',
         component: HomePage
-    }, 
+    },
     {
         path: '/items',
         component: Items
-    }, 
+    },
     {
         path: '/items/pageno/:pageno',
         component: Items
-    },  
+    },
     {
         path: '/signup',
         component: SignUp
@@ -67,7 +68,7 @@ export const routes = [
     {
         path: '/mynotes/type/:type/pageno/:pageno',
         component: UserNotes
-    },   
+    },
     {
         path: '/notes',
         component: AllPublicNotes
@@ -75,7 +76,7 @@ export const routes = [
     {
         path: '/notes/pageno/:pageno',
         component: AllPublicNotes
-    },   
+    },
     {
         path: '/items/:friendlyUrl',
         component: Artifact
@@ -127,5 +128,9 @@ export const routes = [
     {
         path: '/utils',
         component: MixUtils
+    },
+    {
+        path: '/reported',
+        component: ReportedNotes
     },
 ]

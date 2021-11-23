@@ -12,10 +12,25 @@
         <v-form ref="loginForm" v-model="valid" lazy-validation>
           <v-card>
             <v-card-text>
-              <v-text-field prepend-inner-icon="person" v-model="input.username" :rules="input.usernameRules" required label="پست الکترونیکی" class="ltrinput"></v-text-field>
+              <v-text-field
+                prepend-inner-icon="person"
+                v-model="input.username"
+                :rules="input.usernameRules"
+                required
+                label="پست الکترونیکی"
+                class="ltrinput"
+              ></v-text-field>
             </v-card-text>
             <v-card-text>
-              <v-text-field prepend-inner-icon="lock" v-model="input.password" type="password" :rules="input.passwordRules" required label="گذرواژه" class="ltrinput"></v-text-field>
+              <v-text-field
+                prepend-inner-icon="lock"
+                v-model="input.password"
+                type="password"
+                :rules="input.passwordRules"
+                required
+                label="گذرواژه"
+                class="ltrinput"
+              ></v-text-field>
             </v-card-text>
             <v-card-text>
               <v-flex xs12 text-center>
@@ -30,7 +45,9 @@
             <v-divider></v-divider>
             <v-card-text>
               <v-flex xs12 text-center>
-                <v-btn color="warn" v-on:click="forgotpassword()">فراموشی گذرواژه</v-btn>
+                <v-btn color="warn" v-on:click="forgotpassword()"
+                  >فراموشی گذرواژه</v-btn
+                >
               </v-flex>
             </v-card-text>
           </v-card>
@@ -45,7 +62,13 @@
           <router-link to="/profile">
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
-                <v-icon v-if="userInfo.user.rImageId == null" size="196" v-on="on" class="clickable">account_circle</v-icon>
+                <v-icon
+                  v-if="userInfo.user.rImageId == null"
+                  size="196"
+                  v-on="on"
+                  class="clickable"
+                  >account_circle</v-icon
+                >
                 <v-img
                   v-if="userInfo.user.rImageId != null"
                   max-width="196"
@@ -59,7 +82,9 @@
             </v-tooltip>
           </router-link>
           <div>
-            <v-chip color="primary"> سلام {{ userInfo.user.firstName }} {{ userInfo.user.sureName }}! </v-chip>
+            <v-chip color="primary">
+              سلام {{ userInfo.user.firstName }} {{ userInfo.user.sureName }}!
+            </v-chip>
 
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
@@ -75,7 +100,9 @@
           <v-card>
             <v-card-text>
               <router-link to="/bookmarks">
-                <v-btn color="primary">نشان شده‌ها<v-icon left color="yellow">star</v-icon></v-btn>
+                <v-btn color="primary"
+                  >نشان شده‌ها<v-icon left color="yellow">star</v-icon></v-btn
+                >
               </router-link>
             </v-card-text>
           </v-card>
@@ -84,7 +111,11 @@
           <v-card>
             <v-card-text>
               <router-link to="/mynotes/type/public">
-                <v-btn color="primary">یادداشتهای عمومی من<v-icon color="green" left>notes</v-icon></v-btn>
+                <v-btn color="primary"
+                  >یادداشتهای عمومی من<v-icon color="green" left
+                    >notes</v-icon
+                  ></v-btn
+                >
               </router-link>
             </v-card-text>
           </v-card>
@@ -93,7 +124,11 @@
           <v-card>
             <v-card-text>
               <router-link to="/mynotes/type/private">
-                <v-btn color="primary">یادداشتهای شخصی من<v-icon color="red" left>notes</v-icon></v-btn>
+                <v-btn color="primary"
+                  >یادداشتهای شخصی من<v-icon color="red" left
+                    >notes</v-icon
+                  ></v-btn
+                >
               </router-link>
             </v-card-text>
           </v-card>
@@ -104,8 +139,14 @@
               <router-link to="/notifications">
                 <v-btn color="primary">
                   اعلانهای من
-                  <v-icon v-if="unreadNotificationsCount == 0" left>notifications</v-icon>
-                  <v-badge v-if="unreadNotificationsCount != 0" left color="red">
+                  <v-icon v-if="unreadNotificationsCount == 0" left
+                    >notifications</v-icon
+                  >
+                  <v-badge
+                    v-if="unreadNotificationsCount != 0"
+                    left
+                    color="red"
+                  >
                     <template v-slot:badge>
                       <span>{{ unreadNotificationsCount }}</span>
                     </template>
@@ -120,7 +161,9 @@
           <v-card>
             <v-card-text>
               <router-link to="/users">
-                <v-btn color="primary">مدیریت کاربران<v-icon left>supervisor_account</v-icon></v-btn>
+                <v-btn color="primary"
+                  >مدیریت کاربران<v-icon left>supervisor_account</v-icon></v-btn
+                >
               </router-link>
             </v-card-text>
           </v-card>
@@ -129,7 +172,11 @@
           <v-card>
             <v-card-text>
               <router-link to="/roles">
-                <v-btn color="primary">مدیریت نقشها<v-icon left>supervised_user_circle</v-icon></v-btn>
+                <v-btn color="primary"
+                  >مدیریت نقشها<v-icon left
+                    >supervised_user_circle</v-icon
+                  ></v-btn
+                >
               </router-link>
             </v-card-text>
           </v-card>
@@ -138,14 +185,29 @@
           <v-card>
             <v-card-text>
               <router-link to="/glinkrev">
-                <v-btn color="primary">بازبینی ارتباطات<v-icon left>done</v-icon></v-btn>
+                <v-btn color="primary"
+                  >بازبینی ارتباطات<v-icon left>done</v-icon></v-btn
+                >
               </router-link>
             </v-card-text>
           </v-card>
           <v-card>
             <v-card-text>
               <router-link to="/plinkrev">
-                <v-btn color="red">بازبینی تصاویر<v-icon left>done</v-icon></v-btn>
+                <v-btn color="red"
+                  >بازبینی تصاویر<v-icon left>done</v-icon></v-btn
+                >
+              </router-link>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+        <v-flex xs12 text-center v-if="checkPermission('note', 'moderate')">
+          <v-card>
+            <v-card-text>
+              <router-link to="/reported">
+                <v-btn color="primary"
+                  >یادداشتهای گزارش شده<v-icon left>flag</v-icon></v-btn
+                >
               </router-link>
             </v-card-text>
           </v-card>
@@ -154,7 +216,9 @@
           <v-card>
             <v-card-text>
               <router-link to="/logs">
-                <v-btn color="primary">رویدادها<v-icon left>event</v-icon></v-btn>
+                <v-btn color="primary"
+                  >رویدادها<v-icon left>event</v-icon></v-btn
+                >
               </router-link>
             </v-card-text>
           </v-card>
@@ -177,9 +241,12 @@ export default {
       valid: true,
       input: {
         username: "",
-        usernameRules: [v => !!v || "لطفا ایمیل خود را وارد نمایید", v => /.+@.+\..+/.test(v) || "ایمیل وارد شده معتبر نیست"],
+        usernameRules: [
+          (v) => !!v || "لطفا ایمیل خود را وارد نمایید",
+          (v) => /.+@.+\..+/.test(v) || "ایمیل وارد شده معتبر نیست",
+        ],
         password: "",
-        passwordRules: [v => !!v || "لطفا کلمه عبور خود را وارد نمایید"],
+        passwordRules: [(v) => !!v || "لطفا کلمه عبور خود را وارد نمایید"],
         clientAppName: "Museum Clinet Web UI",
         language: "fa-IR",
       },
@@ -219,11 +286,11 @@ export default {
             authorization: "bearer " + this.userInfo.token,
           },
         }).then(
-          result => {
+          (result) => {
             this.unreadNotificationsCount = result.data;
             this.processing = false;
           },
-          error => {
+          (error) => {
             this.processing = false;
             if (error.response && error.response.status == 401) {
               //probably session expired
@@ -247,14 +314,19 @@ export default {
 
       this.processing = true;
       this.errMsg = "";
-      axios({ method: "POST", url: this.appConfig.$api_url + "/api/users/login", data: this.input, headers: { "content-type": "application/json" } }).then(
-        result => {
+      axios({
+        method: "POST",
+        url: this.appConfig.$api_url + "/api/users/login",
+        data: this.input,
+        headers: { "content-type": "application/json" },
+      }).then(
+        (result) => {
           localStorage.setItem("userInfo", JSON.stringify(result.data));
           this.userInfo = result.data;
           EventBus.$emit("user-logged-in", this.userInfo);
           this.processing = false;
         },
-        error => {
+        (error) => {
           this.processing = false;
           this.errMsg = axiosErrorHandler.handle(error);
         }
@@ -275,7 +347,12 @@ export default {
     signout() {
       axios({
         method: "DELETE",
-        url: this.appConfig.$api_url + "/api/users/delsession?userId=" + this.userInfo.user.id + "&sessionId=" + this.userInfo.sessionId,
+        url:
+          this.appConfig.$api_url +
+          "/api/users/delsession?userId=" +
+          this.userInfo.user.id +
+          "&sessionId=" +
+          this.userInfo.sessionId,
         headers: {
           "content-type": "application/json",
           authorization: "bearer " + this.userInfo.token,
@@ -287,7 +364,7 @@ export default {
           EventBus.$emit("user-logged-out", this.userInfo);
           this.$router.push("/");
         },
-        error => {
+        (error) => {
           localStorage.removeItem("userInfo");
           this.userInfo = null;
           this.errMsg = error;
