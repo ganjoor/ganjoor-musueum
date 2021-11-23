@@ -25,6 +25,34 @@
                   <v-card-text>
                     {{ report.reasonText }}
                   </v-card-text>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        text
+                        icon
+                        color="green"
+                        v-on="on"
+                        v-on:click="acceptReport(report.id)"
+                      >
+                        <v-icon>thumb_up</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>درست می‌گوید</span>
+                  </v-tooltip>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        text
+                        icon
+                        color="red"
+                        v-on="on"
+                        v-on:click="declineReport(report.id)"
+                      >
+                        <v-icon>thumb_down_alt</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>نامربوط است</span>
+                  </v-tooltip>
                 </v-card>
               </v-flex>
               <v-flex xs8>
@@ -146,6 +174,51 @@ export default {
     pageNumberChanged(pageNumber) {
       this.$router.push("/notes/pageno/" + pageNumber);
       this.loadBookmarks();
+    },
+    declineReport(reportId) {
+      this.errorMsg = "";
+      axios({
+        method: "DELETE",
+        url: this.appConfig.$api_url + "/api/artifacts/note/report/" + reportId,
+        data: {},
+        headers: {
+          authorization: "bearer " + this.userInfo.token,
+          "content-type": "application/json",
+        },
+      }).then(
+        () => {
+          this.pageItems = this.pageItems.filter(function (value) {
+            return value.id != reportId;
+          });
+        },
+        (error) => {
+          this.errorMsg = axiosErrorHandler.handle(error);
+        }
+      );
+    },
+    acceptReport(reportId) {
+      this.errorMsg = "";
+      axios({
+        method: "DELETE",
+        url:
+          this.appConfig.$api_url +
+          "/api/artifacts/note/reported/moderate/" +
+          reportId,
+        data: {},
+        headers: {
+          authorization: "bearer " + this.userInfo.token,
+          "content-type": "application/json",
+        },
+      }).then(
+        () => {
+          this.pageItems = this.pageItems.filter(function (value) {
+            return value.id != reportId;
+          });
+        },
+        (error) => {
+          this.errorMsg = axiosErrorHandler.handle(error);
+        }
+      );
     },
   },
   watch: {
