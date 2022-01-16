@@ -247,7 +247,25 @@
                     </template>
                     <span>پیشنهاد شعر مرتبط در گنجور</span>
                   </v-tooltip>
-                  <a :href="`${item.item.images[0].srcUrl}`" target="_blank">
+                  <a
+                    v-if="item.item.images[0].srcUrl == null"
+                    :href="`${appConfig.$api_url}/api/images/orig/${item.item.images[0].id}.jpg`"
+                    target="_blank"
+                  >
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn text icon color="white" v-on="on">
+                          <v-icon>zoom_in</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>بزرگترین اندازه</span>
+                    </v-tooltip>
+                  </a>
+                  <a
+                    v-if="item.item.images[0].srcUrl != null"
+                    :href="`${item.item.images[0].srcUrl}`"
+                    target="_blank"
+                  >
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on }">
                         <v-btn text icon color="white" v-on="on">
@@ -337,7 +355,30 @@
                   </v-tooltip>
                 </v-card>
               </v-flex>
-              <a :href="`${item.item.images[0].srcUrl}`" target="_blank">
+              <a
+                v-if="item.item.images[0].srcUrl == null"
+                :href="`${appConfig.$api_url}/api/images/orig/${item.item.images[0].id}.jpg`"
+                target="_blank"
+              >
+                <v-img
+                  v-if="imageAngle == 0"
+                  :src="`${appConfig.$api_url}/api/images/norm/${item.item.images[0].id}.jpg`"
+                  :alt="`${item.item.name}`"
+                  class="grey lighten-2 clickable coverImage"
+                >
+                </v-img>
+                <img
+                  :src="`${appConfig.$api_url}/api/images/norm/${item.item.images[0].id}.jpg`"
+                  :alt="`${item.item.name}`"
+                  id="image"
+                  ref="image"
+                />
+              </a>
+              <a
+                v-if="item.item.images[0].srcUrl != null"
+                :href="`${item.item.images[0].srcUrl}`"
+                target="_blank"
+              >
                 <v-img
                   v-if="imageAngle == 0"
                   :src="`${appConfig.$api_url}/api/images/norm/${item.item.images[0].id}.jpg`"
