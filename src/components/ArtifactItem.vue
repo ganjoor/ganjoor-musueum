@@ -275,6 +275,19 @@
                       <span>تصویر در منبع اصلی</span>
                     </v-tooltip>
                   </a>
+                  <a
+                    :href="`${appConfig.$api_url}/api/images/norm/${item.item.images[0].id}.jpg`"
+                    target="_blank"
+                  >
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn text icon color="white" v-on="on">
+                          <v-icon>pageview</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>مشاهدهٔ تصویر</span>
+                    </v-tooltip>
+                  </a>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
                       <v-btn
