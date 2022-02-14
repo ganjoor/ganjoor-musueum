@@ -81,7 +81,7 @@
               <v-tooltip v-if="checkPermission('artifact', 'modify')" bottom>
                 <template v-slot:activator="{ on }">
                   <v-btn text icon color="white" v-on="on" v-on:click="cover()">
-                    <v-icon>image</v-icon>
+                    <v-icon>card_membership</v-icon>
                   </v-btn>
                 </template>
                 <span>تصویر جلد کتاب شود</span>
@@ -179,115 +179,23 @@
             <v-tab-item :value="`tab-1`">
               <v-flex xs12>
                 <v-card dark color="secondary">
-                  <router-link
-                    :to="`/items/${item.parentFriendlyUrl}/${item.previousItemFriendlyUrl}`"
-                    v-if="item.previousItemFriendlyUrl != ''"
+                  <v-tooltip
+                    bottom
+                    v-if="checkPermission('artifact', 'modify')"
                   >
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-btn text icon color="white" v-on="on">
-                          <v-icon>navigate_next</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>قبلی</span>
-                    </v-tooltip>
-                  </router-link>
-                  <router-link
-                    :to="`/items/${item.parentFriendlyUrl}/${item.nextItemFriendlyUrl}`"
-                    v-if="item.nextItemFriendlyUrl != ''"
-                  >
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-btn text icon color="white" v-on="on">
-                          <v-icon>navigate_before</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>بعدی</span>
-                    </v-tooltip>
-                  </router-link>
-                  <a :href="`${getViewerUrl()}`">
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-chip
-                          outlined
-                          color="white"
-                          v-on="on"
-                          class="clickable"
-                          ><v-icon dark>local_library</v-icon></v-chip
-                        >
-                      </template>
-                      <span>مشاهده در نمای کتابخوان</span>
-                    </v-tooltip>
-                  </a>
-                  <v-tooltip v-if="userInfo != null" bottom>
-                    <template v-slot:activator="{ on }">
-                      <v-btn
-                        text
-                        icon
-                        color="yellow"
-                        v-on="on"
-                        v-on:click="bookmark()"
-                      >
-                        <v-icon>{{ getbookmarkIcon() }}</v-icon>
-                      </v-btn>
-                    </template>
-                    <span>{{ getbookmarkTooltip() }}</span>
-                  </v-tooltip>
-                  <v-tooltip v-if="userInfo != null" bottom>
                     <template v-slot:activator="{ on }">
                       <v-btn
                         text
                         icon
                         color="white"
                         v-on="on"
-                        v-on:click="ganjoorLink = true"
+                        v-on:click="tagHasImage()"
                       >
-                        <v-icon>language</v-icon>
+                        <v-icon>image</v-icon>
                       </v-btn>
                     </template>
-                    <span>پیشنهاد شعر مرتبط در گنجور</span>
+                    <span>دارای نقاشی </span>
                   </v-tooltip>
-                  <a
-                    v-if="item.item.images[0].srcUrl == null"
-                    :href="`${appConfig.$api_url}/api/images/orig/${item.item.images[0].id}.jpg`"
-                    target="_blank"
-                  >
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-btn text icon color="white" v-on="on">
-                          <v-icon>zoom_in</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>بزرگترین اندازه</span>
-                    </v-tooltip>
-                  </a>
-                  <a
-                    v-if="item.item.images[0].srcUrl != null"
-                    :href="`${item.item.images[0].srcUrl}`"
-                    target="_blank"
-                  >
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-btn text icon color="white" v-on="on">
-                          <v-icon>zoom_in</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>تصویر در منبع اصلی</span>
-                    </v-tooltip>
-                  </a>
-                  <a
-                    :href="`${appConfig.$api_url}/api/images/norm/${item.item.images[0].id}.jpg`"
-                    target="_blank"
-                  >
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-btn text icon color="white" v-on="on">
-                          <v-icon>pageview</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>مشاهدهٔ تصویر</span>
-                    </v-tooltip>
-                  </a>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
                       <v-btn
@@ -349,23 +257,48 @@
                     </template>
                     <span>برگشت به وضعیت پیش‌فرض تصویر</span>
                   </v-tooltip>
-                  <v-tooltip
-                    bottom
-                    v-if="checkPermission('artifact', 'modify')"
+
+                  <a
+                    v-if="item.item.images[0].srcUrl == null"
+                    :href="`${appConfig.$api_url}/api/images/orig/${item.item.images[0].id}.jpg`"
+                    target="_blank"
                   >
-                    <template v-slot:activator="{ on }">
-                      <v-btn
-                        text
-                        icon
-                        color="white"
-                        v-on="on"
-                        v-on:click="tagHasImage()"
-                      >
-                        <v-icon>image</v-icon>
-                      </v-btn>
-                    </template>
-                    <span>دارای نقاشی </span>
-                  </v-tooltip>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn text icon color="white" v-on="on">
+                          <v-icon>zoom_in</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>بزرگترین اندازه</span>
+                    </v-tooltip>
+                  </a>
+                  <a
+                    v-if="item.item.images[0].srcUrl != null"
+                    :href="`${item.item.images[0].srcUrl}`"
+                    target="_blank"
+                  >
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn text icon color="white" v-on="on">
+                          <v-icon>zoom_in</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>تصویر در منبع اصلی</span>
+                    </v-tooltip>
+                  </a>
+                  <a
+                    :href="`${appConfig.$api_url}/api/images/norm/${item.item.images[0].id}.jpg`"
+                    target="_blank"
+                  >
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn text icon color="white" v-on="on">
+                          <v-icon>pageview</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>مشاهدهٔ تصویر</span>
+                    </v-tooltip>
+                  </a>
                 </v-card>
               </v-flex>
               <a
