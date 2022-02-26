@@ -4,6 +4,7 @@ import Artifact from './components/Artifact.vue';
 import ArtifactItem from './components/ArtifactItem.vue';
 import Tag from './components/Tag.vue';
 import TagValue from './components/TagValue.vue';
+import Search from './components/Search.vue';
 import SignUp from './components/SignUp.vue';
 import ForgotPassword from './components/ForgotPassword.vue';
 import Users from './components/Users.vue';
@@ -104,6 +105,10 @@ export const routes = [
     {
         path: '/tags/:friendlyUrl/:valueUrl',
         component: TagValue
+    },
+    {
+        path: '/search',
+        component: Search
     },
     {
         path: '/ganjoor',
