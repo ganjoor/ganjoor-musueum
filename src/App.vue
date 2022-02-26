@@ -7,7 +7,9 @@
             <v-icon>home</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title><router-link to="/">خانه</router-link></v-list-item-title>
+            <v-list-item-title
+              ><router-link to="/">خانه</router-link></v-list-item-title
+            >
           </v-list-item-content>
         </v-list-item>
         <UserSidebarWidget />
@@ -16,8 +18,18 @@
 
     <v-app-bar color="cyan" app dark fixed>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title id="logo"> <router-link to="/">گنجینهٔ گنجور</router-link></v-toolbar-title>
+      <v-toolbar-title id="logo">
+        <router-link to="/">گنجینهٔ گنجور</router-link></v-toolbar-title
+      >
       <v-spacer></v-spacer>
+      <v-text-field
+        hide-details
+        append-icon="mdi-magnify"
+        @click:append="searchIcon"
+        @keydown.enter="searchIcon"
+        v-model="searchText"
+        single-line
+      ></v-text-field>
     </v-app-bar>
 
     <v-container>
@@ -35,7 +47,9 @@
             </v-btn>
           </a>
         </template>
-        <span>نحوهٔ پیشنهاد اضافه شدن تصاویر جدید از اینستاگرام و سایر منابع</span>
+        <span
+          >نحوهٔ پیشنهاد اضافه شدن تصاویر جدید از اینستاگرام و سایر منابع</span
+        >
       </v-tooltip>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
@@ -71,7 +85,9 @@
       <v-tooltip top>
         <template v-slot:activator="{ on }">
           <router-link to="/notes">
-            <v-btn text color="white" v-on="on"> یادداشتها<v-icon>notes</v-icon> </v-btn>
+            <v-btn text color="white" v-on="on">
+              یادداشتها<v-icon>notes</v-icon>
+            </v-btn>
           </router-link>
         </template>
         <span>یادداشتهای عمومی همهٔ کاربران</span>
@@ -94,6 +110,7 @@
 export default {
   data: () => ({
     drawer: null,
+    searchText: "",
   }),
   props: {
     source: String,
@@ -141,6 +158,9 @@ export default {
     },
     signingUp() {
       this.drawer = false;
+    },
+    searchIcon() {
+      alert(this.searchText);
     },
   },
 };
