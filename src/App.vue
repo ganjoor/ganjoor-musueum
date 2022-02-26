@@ -160,7 +160,7 @@ export default {
       this.drawer = false;
     },
     searchIcon() {
-      alert(this.searchText);
+      this.$router.push({ path: "/search", query: { q: this.searchText } });
     },
   },
 };
