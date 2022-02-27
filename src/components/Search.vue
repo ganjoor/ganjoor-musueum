@@ -71,7 +71,7 @@
               <v-flex v-for="item in items" :key="item.id" d-flex>
                 <v-card flat raised dark class="d-flex" style="width: 200px">
                   <router-link
-                    :to="`/item/${item.parentFriendlyUrl}/${item.item.friendlyUrl}`"
+                    :to="`/items/${item.parentFriendlyUrl}/${item.item.friendlyUrl}`"
                   >
                     <v-img
                       :src="`${appConfig.$api_url}/api/images/thumb/${item.item.images[0].id}.jpg`"
