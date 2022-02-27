@@ -1,29 +1,31 @@
 <template>
   <v-container grid-list-md text-center>
     <v-layout wrap>
-      <v-flex v-if="term == null" xs12>
-        <v-card dark color="secondary">
-          <v-progress-circular indeterminate></v-progress-circular>
-        </v-card>
-      </v-flex>
-
       <v-flex xs4>
         <v-card light v-if="term != null">
-          <v-card-text>
-            {{ term }}
-          </v-card-text>
-          <v-card-text v-if="items != null">
-            {{ items.length }} عنوان
-          </v-card-text>
+          <v-card-text> جستجوی {{ term }} </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex xs8>
+      <v-flex xs4>
         <v-card>
-          <v-container v-if="items != null" grid-list-sm fluid>
+          <v-flex v-if="errorMsgArtifacts != ''" xs12>
+            <v-card dark color="secondary">
+              <v-card-text>{{ errorMsgArtifacts }}</v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex v-if="loadingArtifacts" xs12>
+            <v-card dark color="secondary">
+              <v-progress-circular indeterminate></v-progress-circular>
+            </v-card>
+          </v-flex>
+          <v-card-text v-if="!loadingArtifacts && artifacts != null">
+            {{ artifacts.length }} نسخه
+          </v-card-text>
+          <v-container v-if="artifacts != null" grid-list-sm fluid>
             <v-layout row wrap>
-              <v-flex v-for="item in items" :key="item.id" d-flex>
+              <v-flex v-for="item in artifacts" :key="item.id" d-flex>
                 <v-card flat raised dark class="d-flex" style="width: 200px">
-                  <router-link :to="`/items/${item.friendlyUrl}`">
+                  <router-link :to="`/artifacts/${item.friendlyUrl}`">
                     <v-img
                       :src="`${appConfig.$api_url}/api/images/thumb/${item.coverImage.id}.jpg`"
                       width="200px"
@@ -60,33 +62,33 @@ export default {
   data() {
     return {
       term: null,
-      items: [],
-      itemsLength: 0,
-      loading: true,
-      errorMsg: "",
+      artifacts: [],
+      artifactsLength: 0,
+      loadingArtifacts: true,
+      errorMsgArtifacts: "",
     };
   },
   mounted() {
-    this.loading = true;
+    this.loadingArtifacts = true;
     this.term = this.$route.query.q;
     axios({
       method: "GET",
       url:
         this.appConfig.$api_url +
-        "/api/artifacts/search?PageNumber=1&PageSize=10&term=" +
+        "/api/artifacts/search?term=" +
         encodeURIComponent(this.term),
       data: {},
       headers: { "content-type": "application/json" },
     }).then(
       (result) => {
-        this.items = result.data;
-        this.itemsLength = this.items.length;
+        this.artifacts = result.data;
+        this.artifactsLength = this.artifacts.length;
 
-        this.loading = false;
+        this.loadingArtifacts = false;
       },
       (error) => {
-        this.errorMsg = error;
-        this.loading = false;
+        this.errorMsgArtifacts = error;
+        this.loadingArtifacts = false;
       }
     );
   },
