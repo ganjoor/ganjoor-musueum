@@ -110,7 +110,6 @@
 export default {
   data: () => ({
     drawer: null,
-    searchText: "",
   }),
   props: {
     source: String,
@@ -131,6 +130,7 @@ export default {
     return {
       userInfo: null,
       drawer: false,
+      searchText: "",
     };
   },
   created() {
@@ -160,7 +160,14 @@ export default {
       this.drawer = false;
     },
     searchIcon() {
-      this.$router.push({ path: "/search", query: { q: this.searchText } });
+      if (this.$router.name != "search") {
+        this.$router.replace({
+          path: "/search",
+          query: { q: this.searchText },
+        });
+      } else {
+        this.$router.replace({ query: { q: this.searchText } });
+      }
     },
   },
 };
