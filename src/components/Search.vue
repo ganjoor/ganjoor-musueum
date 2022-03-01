@@ -95,14 +95,17 @@
               </v-flex>
             </v-layout>
           </v-container>
-          <v-card-text>
+          <v-card-text v-if="items.length < itemsTotalCount">
             <v-btn
               color="success"
-              v-if="!loadingItems && items.length < itemsTotalCount"
               class="mr-4"
+              v-if="!loadingItems"
               v-on:click="loadMoreItems()"
               >بیشتر</v-btn
             >
+            <v-card v-if="loadingItems" dark color="secondary">
+              <v-progress-circular indeterminate></v-progress-circular>
+            </v-card>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -118,7 +121,7 @@ export default {
   data() {
     return {
       term: null,
-      pageSize: 50,
+      pageSize: 10,
       artifacts: [],
       loadingArtifacts: true,
       errorMsgArtifacts: "",
