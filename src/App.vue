@@ -160,7 +160,7 @@ export default {
       this.drawer = false;
     },
     searchIcon() {
-      if (this.$router.name != "search") {
+      if (this.$router.history.current.path != "/search") {
         this.$router.replace({
           path: "/search",
           query: { q: this.searchText },

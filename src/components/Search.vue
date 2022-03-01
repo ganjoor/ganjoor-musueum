@@ -19,7 +19,7 @@
             </v-card>
           </v-flex>
           <v-card-text v-if="!loadingArtifacts && artifacts != null">
-            {{ artifacts.length }} نسخه
+            {{ artifactsTotalCount }} نسخه
           </v-card-text>
           <v-container v-if="artifacts != null" grid-list-sm fluid>
             <v-layout row wrap>
@@ -48,6 +48,18 @@
               </v-flex>
             </v-layout>
           </v-container>
+          <v-card-text v-if="artifacts.length < artifactsTotalCount">
+            <v-btn
+              color="success"
+              class="mr-4"
+              v-if="!loadingArtifacts"
+              v-on:click="loadMoreArtficats()"
+              >بیشتر</v-btn
+            >
+            <v-card v-if="loadingArtifacts" dark color="secondary">
+              <v-progress-circular indeterminate></v-progress-circular>
+            </v-card>
+          </v-card-text>
         </v-card>
       </v-flex>
 
@@ -121,18 +133,16 @@ export default {
   data() {
     return {
       term: null,
-      pageSize: 10,
+      pageSize: 50,
       artifacts: [],
       loadingArtifacts: true,
       errorMsgArtifacts: "",
       artifactsPageNumber: 1,
-      artifactsPageCount: 0,
       artifactsTotalCount: 0,
       items: [],
       loadingItems: true,
       errorMsgItems: "",
       itemsPageNumber: 1,
-      itemsPageCount: 0,
       itemsTotalCount: 0,
     };
   },
@@ -154,9 +164,6 @@ export default {
         headers: { "content-type": "application/json" },
       }).then(
         (result) => {
-          this.itemsPageCount = JSON.parse(
-            result.headers["paging-headers"]
-          ).totalPages;
           this.itemsTotalCount = JSON.parse(
             result.headers["paging-headers"]
           ).totalCount;
@@ -182,12 +189,21 @@ export default {
         url:
           this.appConfig.$api_url +
           "/api/artifacts/search?term=" +
-          encodeURIComponent(this.term),
+          encodeURIComponent(this.term) +
+          "&PageNumber=" +
+          this.artifactsPageNumber +
+          "&PageSize=" +
+          this.pageSize,
         data: {},
         headers: { "content-type": "application/json" },
       }).then(
         (result) => {
-          this.artifacts = result.data;
+          this.artifactsTotalCount = JSON.parse(
+            result.headers["paging-headers"]
+          ).totalCount;
+          for (let index = 0; index < result.data.length; index++) {
+            this.artifacts.push(result.data[index]);
+          }
 
           this.loadingArtifacts = false;
         },
@@ -197,12 +213,22 @@ export default {
         }
       );
     },
+    loadMoreArtficats() {
+      this.artifactsPageNumber++;
+      this.loadArtifacts();
+    },
   },
   created() {
     this.$watch(
       () => this.$route.query,
       () => {
         this.term = this.$route.query.q;
+        this.items = [];
+        this.artifacts = [];
+        this.itemsPageNumber = 1;
+        this.errorMsgItems = "";
+        this.artifactsPageNumber = 1;
+        this.errorMsgArtifacts = "";
         this.loadArtifacts();
         this.loadItems();
       }
