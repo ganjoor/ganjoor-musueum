@@ -63,10 +63,10 @@
               <v-progress-circular indeterminate></v-progress-circular>
             </v-card>
           </v-flex>
-          <v-card-text v-if="!loadingItems && items != null">
-            {{ items.length }} تصویر
+          <v-card-text v-if="!loadingItems">
+            {{ itemsTotalCount }} تصویر
           </v-card-text>
-          <v-container v-if="items != null" grid-list-sm fluid>
+          <v-container grid-list-sm fluid>
             <v-layout row wrap>
               <v-flex v-for="item in items" :key="item.id" d-flex>
                 <v-card flat raised dark class="d-flex" style="width: 200px">
@@ -95,6 +95,15 @@
               </v-flex>
             </v-layout>
           </v-container>
+          <v-card-text>
+            <v-btn
+              color="success"
+              v-if="!loadingItems && items.length < itemsTotalCount"
+              class="mr-4"
+              v-on:click="loadMoreItems()"
+              >بیشتر</v-btn
+            >
+          </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
@@ -109,13 +118,60 @@ export default {
   data() {
     return {
       term: null,
+      pageSize: 50,
       artifacts: [],
       loadingArtifacts: true,
       errorMsgArtifacts: "",
+      artifactsPageNumber: 1,
+      artifactsPageCount: 0,
+      artifactsTotalCount: 0,
       items: [],
       loadingItems: true,
       errorMsgItems: "",
+      itemsPageNumber: 1,
+      itemsPageCount: 0,
+      itemsTotalCount: 0,
     };
+  },
+  methods: {
+    loadItems() {
+      this.loadingItems = true;
+
+      axios({
+        method: "GET",
+        url:
+          this.appConfig.$api_url +
+          "/api/artifacts/search/items?term=" +
+          encodeURIComponent(this.term) +
+          "&PageNumber=" +
+          this.itemsPageNumber +
+          "&PageSize=" +
+          this.pageSize,
+        data: {},
+        headers: { "content-type": "application/json" },
+      }).then(
+        (result) => {
+          this.itemsPageCount = JSON.parse(
+            result.headers["paging-headers"]
+          ).totalPages;
+          this.itemsTotalCount = JSON.parse(
+            result.headers["paging-headers"]
+          ).totalCount;
+          for (let index = 0; index < result.data.length; index++) {
+            this.items.push(result.data[index]);
+          }
+          this.loadingItems = false;
+        },
+        (error) => {
+          this.errorMsgItems = error;
+          this.loadingItems = false;
+        }
+      );
+    },
+    loadMoreItems() {
+      this.itemsPageNumber++;
+      this.loadItems();
+    },
   },
   mounted() {
     this.term = this.$route.query.q;
@@ -140,30 +196,8 @@ export default {
         this.loadingArtifacts = false;
       }
     );
-
-    this.loadingItems = true;
-
-    axios({
-      method: "GET",
-      url:
-        this.appConfig.$api_url +
-        "/api/artifacts/search/items?term=" +
-        encodeURIComponent(this.term),
-      data: {},
-      headers: { "content-type": "application/json" },
-    }).then(
-      (result) => {
-        this.items = result.data;
-
-        this.loadingItems = false;
-      },
-      (error) => {
-        this.errorMsgItems = error;
-        this.loadingItems = false;
-      }
-    );
+    this.loadItems();
   },
-  methods: {},
 };
 </script>
 
