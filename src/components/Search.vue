@@ -148,6 +148,12 @@ export default {
   },
   methods: {
     loadItems() {
+      if (this.term == null || this.term == "") {
+        this.errorMsgItems = "جستجوی عبارت خالی امکان ندارد.";
+        return;
+      }
+
+      this.errorMsgItems = "";
       this.loadingItems = true;
 
       axios({
@@ -183,6 +189,11 @@ export default {
       this.loadItems();
     },
     loadArtifacts() {
+      if (this.term == null || this.term == "") {
+        this.errorMsgArtifacts = "جستجوی عبارت خالی امکان ندارد.";
+        return;
+      }
+      this.errorMsgArtifacts = "";
       this.loadingArtifacts = true;
       axios({
         method: "GET",
