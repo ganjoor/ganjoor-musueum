@@ -175,30 +175,42 @@ export default {
       this.itemsPageNumber++;
       this.loadItems();
     },
+    loadArtifacts() {
+      this.loadingArtifacts = true;
+      axios({
+        method: "GET",
+        url:
+          this.appConfig.$api_url +
+          "/api/artifacts/search?term=" +
+          encodeURIComponent(this.term),
+        data: {},
+        headers: { "content-type": "application/json" },
+      }).then(
+        (result) => {
+          this.artifacts = result.data;
+
+          this.loadingArtifacts = false;
+        },
+        (error) => {
+          this.errorMsgArtifacts = error;
+          this.loadingArtifacts = false;
+        }
+      );
+    },
+  },
+  created() {
+    this.$watch(
+      () => this.$route.query,
+      () => {
+        this.term = this.$route.query.q;
+        this.loadArtifacts();
+        this.loadItems();
+      }
+    );
   },
   mounted() {
     this.term = this.$route.query.q;
-
-    this.loadingArtifacts = true;
-    axios({
-      method: "GET",
-      url:
-        this.appConfig.$api_url +
-        "/api/artifacts/search?term=" +
-        encodeURIComponent(this.term),
-      data: {},
-      headers: { "content-type": "application/json" },
-    }).then(
-      (result) => {
-        this.artifacts = result.data;
-
-        this.loadingArtifacts = false;
-      },
-      (error) => {
-        this.errorMsgArtifacts = error;
-        this.loadingArtifacts = false;
-      }
-    );
+    this.loadArtifacts();
     this.loadItems();
   },
 };
