@@ -28,7 +28,7 @@ export default {
           'href="/ganjoor?url=https://ganjoor.net/'
         );
 
-        var searchString = "گنجور &raquo; ";
+        var searchString = "گنجور » ";
         var postIdIndex = this.htmlSrc.indexOf(searchString);
         if (postIdIndex != -1) {
           postIdIndex += searchString.length;
