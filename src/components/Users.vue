@@ -132,6 +132,7 @@ export default {
         { text: "پست الکترونیکی", value: "email" },
         { text: "نام", value: "firstName" },
         { text: "نام خانوادگی", value: "sureName" },
+        { text: "#", value: "id" },
       ],
       users: null,
       expanded: [],
