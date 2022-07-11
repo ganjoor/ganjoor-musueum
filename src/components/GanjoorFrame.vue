@@ -22,10 +22,21 @@ export default {
       headers: { "content-type": "text/plain" },
     }).then(
       (result) => {
-        this.htmlSrc = strReplacer.replaceArray(
+        var cssKept = strReplacer.replaceArray(
           result.data,
+          ['/css/p8.css'],
+          'p8css'
+        );
+        var replacedHtml = strReplacer.replaceArray(
+          cssKept,
           ['href="/'],
           'href="/ganjoor?url=https://ganjoor.net/'
+        );
+
+        this.htmlSrc = strReplacer.replaceArray(
+          replacedHtml,
+          ['p8css'],
+          'https://ganjoor.net/css/p8.css'
         );
 
         var searchString = "گنجور » ";
