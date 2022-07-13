@@ -33,8 +33,14 @@ export default {
           'href="/ganjoor?url=https://ganjoor.net/'
         );
 
-        this.htmlSrc = strReplacer.replaceArray(
+        var replacedJsLinks = strReplacer.replaceArray(
           replacedHtml,
+          ['src="/'],
+          'src="https://ganjoor.net/'
+        );
+
+        this.htmlSrc = strReplacer.replaceArray(
+          replacedJsLinks,
           ['p8css'],
           'https://ganjoor.net/css/p8.css'
         );
