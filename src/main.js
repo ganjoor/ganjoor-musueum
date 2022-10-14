@@ -6,7 +6,8 @@ import { routes } from "./routes";
 import App from './App.vue';
 import vuetify from './plugins/vuetify';
 import { config } from './config';
-import VueAnalytics from 'vue-analytics'
+import VueAnalytics from 'vue-analytics';
+import './index.css';
 
 
 
