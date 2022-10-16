@@ -1,18 +1,18 @@
-import '@mdi/font/css/materialdesignicons.css'
-import Vue from 'vue';
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
-import fa from 'vuetify/es5/locale/fa';
+// import '@mdi/font/css/materialdesignicons.css'
+// import Vue from 'vue';
+// import Vuetify from 'vuetify';
+// import 'vuetify/dist/vuetify.min.css';
+// import fa from 'vuetify/es5/locale/fa';
 
-Vue.use(Vuetify);
+// Vue.use(Vuetify);
 
-export default new Vuetify({
-  rtl: true,
-  lang: {
-    locales: { fa },
-    current: 'fa',
-  },
-  icons: {
-    iconfont: 'mdi',
-  },
-});
+// export default new Vuetify({
+//   rtl: true,
+//   lang: {
+//     locales: { fa },
+//     current: 'fa',
+//   },
+//   icons: {
+//     iconfont: 'mdi',
+//   },
+// });

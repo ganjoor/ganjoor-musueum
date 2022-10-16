@@ -25,8 +25,7 @@
     "vue-advanced-cropper": "^0.13.2",
     "vue-analytics": "^5.22.1",
     "vue-loader": "^15.9.1",
-    "vue-router": "^3.1.6",
-    "vuetify": "^2.2.19"
+    "vue-router": "^3.1.6"
   },
   "devDependencies": {
     "@mdi/font": "^3.9.97",
@@ -36,7 +35,6 @@
     "eslint": "5.6.0",
     "eslint-plugin-vue": "4.7.1",
     "material-design-icons-iconfont": "^5.0.1",
-    "vue-cli-plugin-vuetify": "^0.6.3",
     "vue-template-compiler": "2.6.10"
   },
   "eslintConfig": {
@@ -49,11 +47,6 @@
       "eslint:recommended"
     ],
     "rules": {}
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
   },
   "browserslist": [
     "> 1%",
