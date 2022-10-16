@@ -3,6 +3,9 @@
     <section class="flex items-stretch justify-center w-screen p-10">
       <h2 class="text-2xl font-bold text-dark md:text-3xl">به گنجینهٔ گنجور خوش آمدید</h2>
     </section>
+    <div>
+
+    </div>
     <section class="flex items-stretch justify-center w-screen p-10">
       <div class="grid xl:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-2 max-w-6xl place-items-stretch">
         <div v-for="item of items" :key="item.id">
