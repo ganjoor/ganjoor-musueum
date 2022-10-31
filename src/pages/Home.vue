@@ -1,19 +1,46 @@
 <template>
   <div class="container">
-    <section class="flex items-stretch justify-center w-screen p-10">
-      <h2 class="text-2xl font-bold text-dark md:text-3xl">به گنجینهٔ گنجور خوش آمدید</h2>
-    </section>
-    <div>
-
-    </div>
-    <section class="flex items-stretch justify-center w-screen p-10">
-      <div class="grid xl:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-2 max-w-6xl place-items-stretch">
-        <div v-for="item of items" :key="item.id">
-          <Card :name="`${item.name}`" :url="`${item.friendlyUrl}`" :time="`${item.dateTime}`"
-            :desc="`${item.description}`" :img="`${appConfig.$api_url}/api/images/thumb/${item.coverImage.id}.jpg`" />
-        </div>
+    <section class="flex items-stretch justify-center w-screen p-4">
+      <div class="flex flex-col text-center w-full">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">به گنجینهٔ گنجور خوش آمدید</h1>
       </div>
     </section>
+    <div class="w-screen divide-y divide-y-reverse">
+      <div class="flex justify-center w-screen">
+        <span> نسخه‌های اضافه شدهٔ اخیر </span>
+        <router-link :to="`/items`" class="rounded">
+          <span
+            class="inline-block py-1 px-2 rounded bg-indigo-50 text-indigo-500 text-xs font-medium tracking-widest mr-2">فهرست
+            کامل</span>
+        </router-link>
+      </div>
+      <section class="max-w-screen-xl mx-auto p-4">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 gap-4 md:gap-6">
+          <div v-for="item of items" :key="item.id">
+            <Card :name="`${item.name}`" :url="`${item.friendlyUrl}`" :time="`${item.dateTime}`"
+              :desc="`${item.description}`" :img="`${appConfig.$api_url}/api/images/thumb/${item.coverImage.id}.jpg`" />
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="py-4 w-screen">
+      <div class="flex justify-center w-screen">
+        <span> مرور بر اساس پدیدآورنده </span>
+        <router-link :to="`/items`" class="rounded">
+          <span
+            class="inline-block py-1 px-2 rounded bg-indigo-50 text-indigo-500 text-xs font-medium tracking-widest mr-2">فهرست
+            کامل</span>
+        </router-link>
+      </div>
+      <section class="max-w-screen-xl mx-auto p-4">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 gap-4 md:gap-6">
+          <div v-for="value in authors" :key="value.friendlyUrl">
+            <Card :name="`${value.name} ${value.count}`" :url="`/tags/contributor/${value.friendlyUrl}`"
+              :desc="`${value.name}`" :img="`${appConfig.$api_url}/api/images/thumb/${value.imageId}.jpg`" />
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -37,7 +64,8 @@ export default {
       authors: [],
       loadingAuthors: true,
       books: [],
-      loadingBooks: true
+      loadingBooks: true,
+      haveTime: true
     }
   },
   mounted() {

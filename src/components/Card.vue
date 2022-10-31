@@ -1,41 +1,21 @@
-<!-- 
 <template>
-  <router-link :to="`${url}`">
-    <div class="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-      <img class="object-cover w-full h-56" :src="`${img}`" alt="avatar">
+  <div>
+    <router-link :to="`${url}`"
+      class="group h-96 flex items-end bg-gray-100 rounded-lg overflow-hidden shadow-lg relative p-4">
+      <img :src="`${img}`" loading="lazy" alt="Photo by Austin Wade"
+        class="w-full h-full object-cover object-center absolute inset-0 group-hover:scale-110 transition duration-200" />
 
-      <div class="py-5 text-center">
-        <a href="#" class="block text-1xl font-bold text-gray-800 dark:text-white" tabindex="0" role="link">
-          {{name.substring(0, name.indexOf('اثر'))}}
-        </a>
-        <span class="text-sm text-gray-700 dark:text-gray-200">
-          {{name.substring(name.lastIndexOf('اثر', name.length))}}...
+      <div class="w-full flex flex-col bg-white text-center rounded-lg relative p-4">
+        <span class="text-gray-500">
+          <small v-if="haveTime">{{ formatDate(time) }}</small>
         </span>
-        <p>
-          <small>
-            {{formatDate(time)}}
-          </small>
-        </p>
+        <span class="text-gray-800 text-lg lg:text-l font-bold">
+          {{ name.substring(0, name.indexOf('اثر')) || name }}
+        </span>
       </div>
-    </div>
-  </router-link>
-</template> -->
-<template>
-  <a href="#" class="block overflow-hidden rounded-2xl">
-    <img alt="Office" :src="`${img}`" class="h-56 w-full object-cover" />
-
-    <div class="bg-gray-900 p-4">
-      <p class="text-xs text-gray-500">{{formatDate(time)}}</p>
-
-      <h3 class="text-sm text-white">
-        {{name.substring(0, name.indexOf('اثر'))}}
-      </h3>
-
-      <p class="mt-1 text-xs text-gray-500">
-        {{name.substring(name.lastIndexOf('اثر', name.length))}}...
-      </p>
-    </div>
-  </a>
+    </router-link>
+  </div>
+  <!-- product - end -->
 
 </template>
 <script>
@@ -47,7 +27,8 @@ export default {
     desc: String,
     img: String,
     url: String,
-    time: String
+    time: String,
+    haveTime: Boolean
   },
   methods: {
     formatDate(date) {
