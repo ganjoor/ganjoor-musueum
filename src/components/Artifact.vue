@@ -43,7 +43,7 @@
               </template>
               <span>مشاهدهٔ تصویر متناظر جلد</span>
             </v-tooltip>
-            <a :href="`http://viewer.ganjoor.net/${item.friendlyUrl}`">
+            <a :href="`https://viewer.ganjoor.net/${item.friendlyUrl}`">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-chip outlined color="white" v-on="on" class="clickable"

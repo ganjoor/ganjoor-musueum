@@ -1709,10 +1709,10 @@ export default {
         n = n - 1;
       }
       if (n < 0) {
-        return "http://viewer.ganjoor.net/" + this.item.parentFriendlyUrl;
+        return "https://viewer.ganjoor.net/" + this.item.parentFriendlyUrl;
       }
       return (
-        "http://viewer.ganjoor.net/" +
+        "https://viewer.ganjoor.net/" +
         this.item.parentFriendlyUrl +
         "#page/n" +
         n +
