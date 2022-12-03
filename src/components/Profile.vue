@@ -9,40 +9,19 @@
         </v-card>
         <v-card>
           <v-card-text>
-            <v-text-field
-              prepend-inner-icon="email"
-              v-model="userInfo.user.email"
-              class="ltrinput"
-              placeholder="پست الکترونیکی"
-              disabled
-            ></v-text-field>
+            <v-text-field prepend-inner-icon="email" v-model="userInfo.user.email" class="ltrinput"
+              placeholder="پست الکترونیکی" disabled></v-text-field>
           </v-card-text>
         </v-card>
         <v-card>
           <v-card-text>
-            <v-icon v-if="userInfo.user.rImageId == null" size="196"
-              >account_circle</v-icon
-            >
-            <v-img
-              v-if="userInfo.user.rImageId != null"
-              width="196"
-              height="196"
-              :src="`${appConfig.$api_url}/api/rimages/${userInfo.user.rImageId}.jpg`"
-              class="centeredimg"
-            ></v-img>
+            <v-icon v-if="userInfo.user.rImageId == null" size="196">account_circle</v-icon>
+            <v-img v-if="userInfo.user.rImageId != null" width="196" height="196"
+              :src="`${appConfig.$api_url}/api/rimages/${userInfo.user.rImageId}.jpg`" class="centeredimg"></v-img>
           </v-card-text>
           <v-card-text>
-            <v-file-input
-              accept="image/*"
-              prepend-icon="mdi-camera"
-              label="تصویر جدید"
-              v-model="files"
-            ></v-file-input>
-            <v-btn
-              color="green"
-              class="ma-2 white--text"
-              @click="handleImageUpload"
-            >
+            <v-file-input accept="image/*" prepend-icon="mdi-camera" label="تصویر جدید" v-model="files"></v-file-input>
+            <v-btn color="green" class="ma-2 white--text" @click="handleImageUpload">
               ارسال ‌<v-icon right dark>image</v-icon>
             </v-btn>
             <v-btn color="red" class="ma-2 white--text" @click="removeImage">
@@ -72,38 +51,19 @@
             </p>
           </v-card-text>
           <v-card-text>
-            <v-text-field
-              prepend-inner-icon="lock"
-              v-model="oldPassword"
-              type="password"
-              placeholder="گذرواژه فعلی"
-              class="ltrinput"
-            ></v-text-field>
+            <v-text-field prepend-inner-icon="lock" v-model="oldPassword" type="password" placeholder="گذرواژه فعلی"
+              class="ltrinput"></v-text-field>
           </v-card-text>
           <v-card-text>
-            <v-text-field
-              prepend-inner-icon="lock"
-              v-model="newPassword"
-              type="password"
-              placeholder="گذرواژه جدید"
-              class="ltrinput"
-            ></v-text-field>
+            <v-text-field prepend-inner-icon="lock" v-model="newPassword" type="password" placeholder="گذرواژه جدید"
+              class="ltrinput"></v-text-field>
           </v-card-text>
           <v-card-text>
-            <v-text-field
-              prepend-inner-icon="lock"
-              v-model="confirmPassword"
-              type="password"
-              placeholder="تکرار گذرواژه جدید"
-              class="ltrinput"
-            ></v-text-field>
+            <v-text-field prepend-inner-icon="lock" v-model="confirmPassword" type="password"
+              placeholder="تکرار گذرواژه جدید" class="ltrinput"></v-text-field>
           </v-card-text>
           <v-card-text>
-            <v-btn
-              color="green"
-              class="ma-2 white--text"
-              @click="changePassword"
-            >
+            <v-btn color="green" class="ma-2 white--text" @click="changePassword">
               تغییر گذرواژه ‌<v-icon right dark>edit</v-icon>
             </v-btn>
           </v-card-text>
@@ -113,18 +73,16 @@
             <h3>تغییر مشخصات</h3>
           </v-card-text>
           <v-card-text>
-            <v-text-field
-              prepend-inner-icon="person"
-              v-model="userInfo.user.firstName"
-              placeholder="نام"
-            ></v-text-field>
+            <v-text-field prepend-inner-icon="person" v-model="userInfo.user.firstName"
+              placeholder="نام"></v-text-field>
           </v-card-text>
           <v-card-text>
-            <v-text-field
-              prepend-inner-icon="person"
-              v-model="userInfo.user.sureName"
-              placeholder="نام خانوادگی"
-            ></v-text-field>
+            <v-text-field prepend-inner-icon="person" v-model="userInfo.user.sureName"
+              placeholder="نام خانوادگی"></v-text-field>
+          </v-card-text>
+          <v-card-text>
+            <v-text-field prepend-inner-icon="person" v-model="userInfo.user.nickName"
+              placeholder="نام مستعار"></v-text-field>
           </v-card-text>
           <v-card-text>
             <v-btn color="green" class="ma-2 white--text" @click="updateUser">
@@ -237,37 +195,51 @@ export default {
     updateUser() {
       this.errorMsg = "";
       axios({
-        method: "PUT",
-        url: this.appConfig.$api_url + "/api/users/" + this.userInfo.user.id,
-        data: {
-          password: "",
-          isAdmin: this.userInfo.user.isAdmin,
-          id: this.userInfo.user.id,
-          username: this.userInfo.user.username,
-          email: this.userInfo.user.email,
-          phoneNumber: this.userInfo.user.phoneNumber,
-          firstName: this.userInfo.user.firstName,
-          sureName: this.userInfo.user.sureName,
-          status: this.userInfo.user.status,
-          rImageId: this.userInfo.user.rImageId,
-        },
-        headers: {
-          authorization: "bearer " + this.userInfo.token,
+        method: "GET", "url": this.appConfig.$api_url + "/api/users/isadmin?userId=" + this.userInfo.user.id,
+        "headers":
+        {
           "content-type": "application/json",
-        },
-      }).then(
-        (result) => {
-          if (!result) {
-            this.errorMsg = "تغییر مشخصات موفق نبود.";
-          } else {
-            this.errorMsg = "تغییر مشخصات انجام شد.";
-            localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
-          }
-        },
-        (error) => {
-          this.errorMsg = axiosErrorHandler.handle(error);
+          "authorization": "bearer " + this.userInfo.token
         }
-      );
+      }).then(res => {
+        axios({
+          method: "PUT",
+          url: this.appConfig.$api_url + "/api/users/" + this.userInfo.user.id,
+          data: {
+            password: "",
+            isAdmin: res.data,
+            id: this.userInfo.user.id,
+            username: this.userInfo.user.username,
+            email: this.userInfo.user.email,
+            phoneNumber: this.userInfo.user.phoneNumber,
+            firstName: this.userInfo.user.firstName,
+            sureName: this.userInfo.user.sureName,
+            status: this.userInfo.user.status,
+            rImageId: this.userInfo.user.rImageId,
+            nickName: this.userInfo.user.nickName,
+          },
+          headers: {
+            authorization: "bearer " + this.userInfo.token,
+            "content-type": "application/json",
+          },
+        }).then(
+          (result) => {
+            if (!result) {
+              this.errorMsg = "تغییر مشخصات موفق نبود.";
+            } else {
+              this.errorMsg = "تغییر مشخصات انجام شد.";
+              localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
+            }
+          },
+          (error) => {
+            this.errorMsg = axiosErrorHandler.handle(error);
+          }
+        );
+      }, error1 => {
+        this.errorMsg = axiosErrorHandler.handle(error1);
+      });
+
+
     },
   },
 };
@@ -277,6 +249,7 @@ export default {
 .centeredimg {
   margin: auto;
 }
+
 .ltrinput {
   direction: ltr;
 }
