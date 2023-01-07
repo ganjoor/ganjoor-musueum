@@ -17,7 +17,7 @@
         <v-card dark color="secondary">
           <v-card-text v-if="item != null">
             <v-img
-              :src="`${appConfig.$api_url}/api/images/thumb/${item.coverImage.id}.jpg`"
+              :src="`${item.coverImage.externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
               max-width="200px"
               class="grey lighten-2 clickable coverImage"
               @click="coverImageClicked()"
@@ -756,7 +756,7 @@
                     :to="`/items/${item.friendlyUrl}/${artifactItem.friendlyUrl}`"
                   >
                     <v-img
-                      :src="`${appConfig.$api_url}/api/images/thumb/${artifactItem.images[0].id}.jpg`"
+                      :src="`${artifactItem.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                       max-width="200px"
                       max-height="400px"
                       class="grey lighten-2 clickable"
