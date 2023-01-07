@@ -260,7 +260,7 @@
 
                   <a
                     v-if="item.item.images[0].srcUrl == null"
-                    :href="`${appConfig.$api_url}/api/images/orig/${item.item.images[0].id}.jpg`"
+                    :href="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/orig/')}`"
                     target="_blank"
                   >
                     <v-tooltip bottom>
@@ -287,7 +287,7 @@
                     </v-tooltip>
                   </a>
                   <a
-                    :href="`${appConfig.$api_url}/api/images/norm/${item.item.images[0].id}.jpg`"
+                    :href="`${item.item.images[0].externalNormalSizeImageUrl}`"
                     target="_blank"
                   >
                     <v-tooltip bottom>
@@ -303,18 +303,18 @@
               </v-flex>
               <a
                 v-if="item.item.images[0].srcUrl == null"
-                :href="`${appConfig.$api_url}/api/images/orig/${item.item.images[0].id}.jpg`"
+                :href="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/orig/')}`"
                 target="_blank"
               >
                 <v-img
                   v-if="imageAngle == 0"
-                  :src="`${appConfig.$api_url}/api/images/norm/${item.item.images[0].id}.jpg`"
+                  :src="`${item.item.images[0].externalNormalSizeImageUrl}`"
                   :alt="`${item.item.name}`"
                   class="grey lighten-2 clickable coverImage"
                 >
                 </v-img>
                 <img
-                  :src="`${appConfig.$api_url}/api/images/norm/${item.item.images[0].id}.jpg`"
+                  :src="`${item.item.images[0].externalNormalSizeImageUrl}`"
                   :alt="`${item.item.name}`"
                   id="image"
                   ref="image"
@@ -327,13 +327,13 @@
               >
                 <v-img
                   v-if="imageAngle == 0"
-                  :src="`${appConfig.$api_url}/api/images/norm/${item.item.images[0].id}.jpg`"
+                  :src="`${item.item.images[0].externalNormalSizeImageUrl}`"
                   :alt="`${item.item.name}`"
                   class="grey lighten-2 clickable coverImage"
                 >
                 </v-img>
                 <img
-                  :src="`${appConfig.$api_url}/api/images/norm/${item.item.images[0].id}.jpg`"
+                  :src="`${item.item.images[0].externalNormalSizeImageUrl}`"
                   :alt="`${item.item.name}`"
                   id="image"
                   ref="image"
@@ -344,7 +344,7 @@
               <v-card v-if="item != null">
                 <v-card-text>
                   <v-img
-                    :src="`${appConfig.$api_url}/api/images/thumb/${item.item.images[0].id}.jpg`"
+                    :src="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                     :alt="`${item.item.name}`"
                     max-width="200px"
                     class="grey lighten-2 coverImage"
@@ -688,7 +688,7 @@
               <v-card v-if="item != null">
                 <v-card-text>
                   <v-img
-                    :src="`${appConfig.$api_url}/api/images/thumb/${item.item.images[0].id}.jpg`"
+                    :src="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                     :alt="`${item.item.name}`"
                     max-width="200px"
                     class="grey lighten-2 coverImage"
@@ -800,7 +800,7 @@
                       <v-card>
                         <cropper
                           classname="cropper"
-                          :src="`${appConfig.$api_url}/api/images/thumb/${item.item.images[0].id}.jpg`"
+                          :src="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                           :stencil-props="{ aspectRatio: 10 / 12 }"
                           @change="cropperCoordinatesChanged"
                         ></cropper>
@@ -838,7 +838,7 @@
               <v-card v-if="item != null">
                 <v-card-text>
                   <v-img
-                    :src="`${appConfig.$api_url}/api/images/thumb/${item.item.images[0].id}.jpg`"
+                    :src="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                     :alt="`${item.item.name}`"
                     max-width="200px"
                     class="grey lighten-2 coverImage"
