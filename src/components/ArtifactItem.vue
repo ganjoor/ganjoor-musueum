@@ -18,7 +18,7 @@
           <v-card-text>
             <router-link :to="`/items/${item.parentFriendlyUrl}`">
               <v-img
-                :src="`${appConfig.$api_url}/api/images/thumb/${item.parentImageId}.jpg`"
+                :src="`${item.parentExternalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                 :alt="`${item.parentName}`"
                 max-width="200px"
                 class="grey lighten-2 clickable coverImage"
@@ -97,7 +97,7 @@
                   :to="`/items/${item.parentFriendlyUrl}/${item.previousItemFriendlyUrl}`"
                 >
                   <v-img
-                    :src="`${appConfig.$api_url}/api/images/thumb/${item.prevItemImageId}.jpg`"
+                    :src="`${item.prevItemExternalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                     alt="قبلی"
                     max-width="100px"
                     class="grey lighten-2 clickable coverImage"
@@ -127,7 +127,7 @@
                   :to="`/items/${item.parentFriendlyUrl}/${item.nextItemFriendlyUrl}`"
                 >
                   <v-img
-                    :src="`${appConfig.$api_url}/api/images/thumb/${item.nextItemImageId}.jpg`"
+                    :src="`${item.nextItemExternalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                     alt="بعدی"
                     max-width="100px"
                     class="grey lighten-2 clickable coverImage"
