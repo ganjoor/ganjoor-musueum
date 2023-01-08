@@ -15,7 +15,7 @@
                 <v-card v-if="pageItems != null">
                     <v-card-text v-for="bookmark in pageItems" :key="bookmark.id">
                         <router-link v-if="bookmark.rArtifactMasterRecord != null" :to="`/items/${bookmark.rArtifactMasterRecord.friendlyUrl}`">
-                            <v-img :src="`${appConfig.$api_url}/api/images/thumb/${bookmark.rArtifactMasterRecord.coverImage.id}.jpg`"
+                            <v-img :src="`${bookmark.rArtifactMasterRecord.coverImage.externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                                    max-width="200px"
                                    class="grey lighten-2 clickable coverImage">
                                 <template v-slot:placeholder>
@@ -34,7 +34,7 @@
                             </v-card>
                         </router-link>
                         <router-link v-if="bookmark.rArtifactItemRecord != null" :to="`/items/${bookmark.rArtifactItemRecord.parentFriendlyUrl}/${bookmark.rArtifactItemRecord.item.friendlyUrl}`">
-                            <v-img :src="`${appConfig.$api_url}/api/images/thumb/${bookmark.rArtifactItemRecord.item.images[0].id}.jpg`"
+                            <v-img :src="`${bookmark.rArtifactItemRecord.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                                    max-width="200px"
                                    class="grey lighten-2 clickable coverImage">
                                 <template v-slot:placeholder>
