@@ -15,7 +15,7 @@
                 <v-card v-if="pageItems != null">
                     <v-card-text v-for="note in pageItems" :key="note.id">
                         <router-link :to="`/items/${note.relatedEntityFriendlyUrl}`">
-                            <v-img :src="`${appConfig.$api_url}/api/images/thumb/${note.relatedEntityImageId}.jpg`"
+                            <v-img :src="`${note.relatedEntityExternalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                                    max-width="200px"
                                    class="grey lighten-2 clickable coverImage">
                                 <template v-slot:placeholder>
@@ -34,7 +34,7 @@
                                 <v-card-text v-if="note.relatedItemParentName != null">
                                     {{note.relatedEntityName}} ({{note.relatedItemParentName}})
                                 </v-card-text>
-                                <v-card-text v-html="note.htmlContent"></v-card-text>
+                                <v-card-text v-html="note.htmlContent.replace('ganjgah.ir', 'api.ganjoor.net')"></v-card-text>
                             </v-card>
                         </router-link>                       
                     </v-card-text>

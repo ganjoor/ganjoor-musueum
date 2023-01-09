@@ -24,7 +24,7 @@
                                     </v-card-text>                                   
                                     <v-card-text>
                                         <router-link :to="`/items/${note.relatedEntityFriendlyUrl}#${note.id}`">
-                                            <v-img :src="`${appConfig.$api_url}/api/images/thumb/${note.relatedEntityImageId}.jpg`"
+                                            <v-img :src="`${note.relatedEntityExternalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                                                    max-width="200px"
                                                    class="grey lighten-2 clickable coverImage">
                                                 <template v-slot:placeholder>
@@ -57,7 +57,7 @@
                                             <v-card-text> متن یادداشت</v-card-text>
                                         </v-card>
                                     </v-card-text>
-                                    <v-card-text v-html="note.htmlContent"></v-card-text>
+                                    <v-card-text v-html="note.htmlContent.replace('ganjgah.ir', 'api.ganjoor.net')"></v-card-text>
                                     <v-card-text>
                                         <v-icon v-if="note.rUserImageId == null" size="60" class="centeredimg">account_circle</v-icon>
                                         <v-img v-if="note.rUserImageId != null" max-width="60" max-height="60" class="centeredimg"
