@@ -280,7 +280,7 @@
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on }">
                         <v-btn text icon color="white" v-on="on">
-                          <v-icon>zoom_in</v-icon>
+                          <v-icon>fullscreen</v-icon>
                         </v-btn>
                       </template>
                       <span>تصویر در منبع اصلی</span>
@@ -296,13 +296,25 @@
                           <v-icon>pageview</v-icon>
                         </v-btn>
                       </template>
-                      <span>مشاهدهٔ تصویر</span>
+                      <span>مشاهدهٔ تصویر با اندازهٔ متوسط</span>
+                    </v-tooltip>
+                  </a>
+                  <a
+                    :href="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/orig/')}`"
+                    target="_blank"
+                  >
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn text icon color="white" v-on="on">
+                          <v-icon>zoom_in</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>مشاهدهٔ تصویر با اندازهٔ اصلی</span>
                     </v-tooltip>
                   </a>
                 </v-card>
               </v-flex>
               <a
-                v-if="item.item.images[0].srcUrl == null"
                 :href="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/orig/')}`"
                 target="_blank"
               >
@@ -320,25 +332,7 @@
                   ref="image"
                 />
               </a>
-              <a
-                v-if="item.item.images[0].srcUrl != null"
-                :href="`${item.item.images[0].srcUrl}`"
-                target="_blank"
-              >
-                <v-img
-                  v-if="imageAngle == 0"
-                  :src="`${item.item.images[0].externalNormalSizeImageUrl}`"
-                  :alt="`${item.item.name}`"
-                  class="grey lighten-2 clickable coverImage"
-                >
-                </v-img>
-                <img
-                  :src="`${item.item.images[0].externalNormalSizeImageUrl}`"
-                  :alt="`${item.item.name}`"
-                  id="image"
-                  ref="image"
-                />
-              </a>
+              
             </v-tab-item>
             <v-tab-item :value="`tab-2`">
               <v-card v-if="item != null">
