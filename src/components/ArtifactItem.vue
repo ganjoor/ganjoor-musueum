@@ -779,7 +779,7 @@
                     outlined
                     rounded
                   ></v-textarea>
-                  <v-btn text v-on:click="insertCroppedImage = true">
+                  <v-btn text v-on:click="insertCroppedImage = true" v-if="checkPermission('artifact', 'modify')">
                     درج برش <v-icon>crop</v-icon>
                   </v-btn>
                   <v-btn text v-on:click="saveNewNote('private')">

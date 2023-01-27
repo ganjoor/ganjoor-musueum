@@ -149,7 +149,7 @@
                     rounded
                   ></v-textarea>
                   <v-btn
-                    v-if="imageId != null"
+                    v-if="imageId != null && checkPermission('artifact', 'modify')"
                     text
                     v-on:click="insertCroppedImage = true"
                   >
@@ -228,7 +228,7 @@
       <v-card-text v-if="writingPublicNote">
         <v-textarea v-model="newNote" auto-grow outlined rounded></v-textarea>
         <v-btn
-          v-if="imageId != null"
+          v-if="imageId != null && checkPermission('artifact', 'modify')"
           text
           v-on:click="insertCroppedImage = true"
         >
