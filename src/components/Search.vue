@@ -27,7 +27,7 @@
                 <v-card flat raised dark class="d-flex" style="width: 200px">
                   <router-link :to="`/items/${item.friendlyUrl}`">
                     <v-img
-                      :src="`${appConfig.$api_url}/api/images/thumb/${item.coverImage.id}.jpg`"
+                    :src="`${item.coverImage.externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                       width="200px"
                       class="grey lighten-2 clickable"
                     >
@@ -86,7 +86,7 @@
                     :to="`/items/${item.parentFriendlyUrl}/${item.item.friendlyUrl}`"
                   >
                     <v-img
-                      :src="`${appConfig.$api_url}/api/images/thumb/${item.item.images[0].id}.jpg`"
+                    :src="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                       width="200px"
                       class="grey lighten-2 clickable"
                     >

@@ -24,7 +24,7 @@
                 <v-card flat dark raised style="width:200px" class="d-flex">
 
                     <router-link :to="`/items/${item.friendlyUrl}`">
-                        <v-img :src="`${appConfig.$api_url}/api/images/thumb/${item.coverImage.id}.jpg`"
+                        <v-img :src="`${item.coverImage.externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
                                width="200px"
                                class="grey lighten-2 clickable">
                             <template v-slot:placeholder>
