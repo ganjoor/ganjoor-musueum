@@ -131,7 +131,7 @@ export default {
       headers: [
         { text: "پست الکترونیکی", value: "email" },
         { text: "نام", value: "firstName" },
-        { text: "نام خانوادگی", value: "sureName" },
+        { text: "نام خانوادگی", value: "surName" },
         { text: "#", value: "id" },
       ],
       users: null,
@@ -357,7 +357,7 @@ export default {
               email: this.users[i].email,
               phoneNumber: this.users[i].phoneNumber,
               firstName: this.users[i].firstName,
-              sureName: this.users[i].sureName,
+              surName: this.users[i].surName,
               status: newStaus,
               rImageId: this.users[i].rImageId,
             },

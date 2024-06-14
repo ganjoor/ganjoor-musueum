@@ -83,7 +83,7 @@
           </router-link>
           <div>
             <v-chip color="primary">
-              سلام {{ userInfo.user.firstName }} {{ userInfo.user.sureName }}!
+              سلام {{ userInfo.user.firstName }} {{ userInfo.user.surName }}!
             </v-chip>
 
             <v-tooltip bottom>

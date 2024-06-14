@@ -77,7 +77,7 @@
               placeholder="نام"></v-text-field>
           </v-card-text>
           <v-card-text>
-            <v-text-field prepend-inner-icon="person" v-model="userInfo.user.sureName"
+            <v-text-field prepend-inner-icon="person" v-model="userInfo.user.surName"
               placeholder="نام خانوادگی"></v-text-field>
           </v-card-text>
           <v-card-text>
@@ -213,7 +213,7 @@ export default {
             email: this.userInfo.user.email,
             phoneNumber: this.userInfo.user.phoneNumber,
             firstName: this.userInfo.user.firstName,
-            sureName: this.userInfo.user.sureName,
+            surName: this.userInfo.user.surName,
             status: this.userInfo.user.status,
             rImageId: this.userInfo.user.rImageId,
             nickName: this.userInfo.user.nickName,

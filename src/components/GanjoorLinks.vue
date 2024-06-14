@@ -11,7 +11,7 @@
                                :src="`${appConfig.$api_url}/api/rimages/${currentLink.suggestedBy.rImageId}.jpg`"></v-img>
                     </div>
                     <div>
-                        <small>{{currentLink.suggestedBy.firstName}} {{currentLink.suggestedBy.sureName}}</small>
+                        <small>{{currentLink.suggestedBy.firstName}} {{currentLink.suggestedBy.surName}}</small>
                     </div>                    
                 </div>
 

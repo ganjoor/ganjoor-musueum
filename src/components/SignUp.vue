@@ -138,7 +138,7 @@
             <v-card-text>
               <v-text-field
                 prepend-inner-icon="person"
-                v-model="sureName"
+                v-model="surName"
                 label="نام خانوادگی"
               ></v-text-field>
             </v-card-text>
@@ -240,7 +240,7 @@ export default {
       step3Valid: true,
       firstName: "",
       firstNameRules: [(v) => !!v || "لطفا یک نام برای خود انتخاب نمایید"],
-      sureName: "",
+      surName: "",
       password: "",
       passwordRules: [
         (v) => !!v || "کلمه عبور خود را وارد نمایید",
@@ -393,7 +393,7 @@ export default {
           secret: this.secret,
           password: this.password,
           firstName: this.firstName,
-          sureName: this.sureName,
+          surName: this.surName,
         },
         headers: {
           "content-type": "application/json",
