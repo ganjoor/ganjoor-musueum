@@ -17,7 +17,9 @@
         <v-card dark color="secondary">
           <v-card-text v-if="item != null">
             <v-img
-              :src="`${item.coverImage.externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
+              :src="`${item.coverImage.externalNormalSizeImageUrl
+                .replace('/norm/', '/thumb/')
+                .replace('/orig/', '/thumb/')}`"
               max-width="200px"
               class="grey lighten-2 clickable coverImage"
               @click="coverImageClicked()"
@@ -76,7 +78,7 @@
               >تصاویر با ویژگی {{ filteredTag.name }}
               <span v-if="filteredTagValue != null">
                 دارای مقدار {{ filteredTagValue.value }}</span
-              >&nbsp;<small>({{ item.items.length }} تصویر)</small></v-card-text
+              >&nbsp;<small>({{ item.itemCount }} تصویر)</small></v-card-text
             >
           </v-card>
           <!-- edit name begin -->
@@ -756,7 +758,9 @@
                     :to="`/items/${item.friendlyUrl}/${artifactItem.friendlyUrl}`"
                   >
                     <v-img
-                      :src="`${artifactItem.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
+                      :src="`${artifactItem.images[0].externalNormalSizeImageUrl
+                        .replace('/norm/', '/thumb/')
+                        .replace('/orig/', '/thumb/')}`"
                       max-width="200px"
                       max-height="400px"
                       class="grey lighten-2 clickable"
@@ -893,6 +897,12 @@ export default {
           if (this.$route.params.value != null) {
             apiUrl += "/" + this.$route.params.value;
           }
+        } else {
+          apiUrl =
+            this.appConfig.$api_url +
+            "/api/artifacts/limited/" +
+            this.$route.params.friendlyUrl +
+            "/21";
         }
         axios({
           method: "GET",
@@ -952,18 +962,25 @@ export default {
         this.pageItems = selectedItems;
         this.pageCount = 1;
       } else {
+        this.pageCount =
+          this.item.itemCount % this.pageSize == 0
+            ? parseInt(this.item.itemCount / this.pageSize, 10)
+            : parseInt(this.item.itemCount / this.pageSize, 10) + 1;
+        this.pageNumberChangedWithRouterChangeParam(this.pageNumber, false);
+        /*
         for (
           var i = (this.pageNumber - 1) * this.pageSize;
-          i < Math.min(this.pageNumber * this.pageSize, this.item.items.length);
+          i < Math.min(this.pageNumber * this.pageSize, this.item.itemCount);
           i++
         ) {
           selectedItems.push(this.item.items[i]);
         }
         this.pageItems = selectedItems;
         this.pageCount =
-          this.item.items.length % this.pageSize == 0
-            ? parseInt(this.item.items.length / this.pageSize, 10)
-            : parseInt(this.item.items.length / this.pageSize, 10) + 1;
+          this.item.itemCount % this.pageSize == 0
+            ? parseInt(this.item.itemCount / this.pageSize, 10)
+            : parseInt(this.item.itemCount / this.pageSize, 10) + 1;
+            */
       }
 
       this.itemName = this.item.name;
@@ -1119,19 +1136,65 @@ export default {
       document.title = title;
     },
     pageNumberChanged(pageNumber) {
-      var selectedItems = [];
-      for (
-        var i = (this.pageNumber - 1) * this.pageSize;
-        i < Math.min(this.pageNumber * this.pageSize, this.item.items.length);
-        i++
-      ) {
-        selectedItems.push(this.item.items[i]);
-      }
-      this.pageItems = selectedItems;
+      this.pageNumberChangedWithRouterChangeParam(pageNumber, true);
+    },
+    pageNumberChangedWithRouterChangeParam(pageNumber, routerChange) {
+      if (this.item.items.length > (this.pageNumber - 1) * this.pageSize) {
+        var selectedItems = [];
+        for (
+          var i = (this.pageNumber - 1) * this.pageSize;
+          i < Math.min(this.pageNumber * this.pageSize, this.item.items.length);
+          i++
+        ) {
+          selectedItems.push(this.item.items[i]);
+        }
+        this.pageItems = selectedItems;
 
-      this.$router.push(
-        "/items/" + this.item.friendlyUrl + "/pageno/" + pageNumber
-      );
+        if (routerChange) {
+          if (pageNumber == 1) {
+            this.$router.push("/items/" + this.item.friendlyUrl);
+          } else {
+            this.$router.push(
+              "/items/" + this.item.friendlyUrl + "/pageno/" + pageNumber
+            );
+          }
+        }
+      } else {
+        //load items:
+        var apiUrl =
+          this.appConfig.$api_url +
+          "/api/artifacts/itemsof/" +
+          this.item.id +
+          "/" +
+          ((this.pageNumber - 1) * this.pageSize).toString() +
+          "/21";
+
+        axios({
+          method: "GET",
+          url: apiUrl,
+          data: {},
+          headers: { "content-type": "application/json" },
+        }).then(
+          (result) => {
+            this.pageItems = result.data;
+            this.$router.push(
+              "/items/" + this.item.friendlyUrl + "/pageno/" + pageNumber
+            );
+            if (routerChange) {
+              if (pageNumber == 1) {
+                this.$router.push("/items/" + this.item.friendlyUrl);
+              } else {
+                this.$router.push(
+                  "/items/" + this.item.friendlyUrl + "/pageno/" + pageNumber
+                );
+              }
+            }
+          },
+          (error) => {
+            this.errorMsg = axiosErrorHandler.handle(error);
+          }
+        );
+      }
     },
     coverImageClicked() {
       if (this.$route.params.tag != null) {
