@@ -733,13 +733,18 @@
 
         <v-card>
           <div class="text-center">
+            <v-flex v-if="loadingItems" xs12>
+              <v-card dark color="secondary">
+                <v-progress-circular indeterminate></v-progress-circular>
+              </v-card>
+            </v-flex>
             <v-pagination
               v-model="pageNumber"
               :length="pageCount"
-              total-visible="10"
+              total-visible="5"
               circle
-              prev-icon="mdi-menu-right"
-              next-icon="mdi-menu-left"
+              prev-icon="mdi-menu-left"
+              next-icon="mdi-menu-right"
               @input="pageNumberChanged"
             ></v-pagination>
           </div>
@@ -864,6 +869,7 @@ export default {
       active_tab: "tab-1",
       hashNoteId: "",
       longProcessInDialogs: false,
+      loadingItems: false,
     };
   },
   mounted() {
@@ -967,20 +973,6 @@ export default {
             ? parseInt(this.item.itemCount / this.pageSize, 10)
             : parseInt(this.item.itemCount / this.pageSize, 10) + 1;
         this.pageNumberChangedWithRouterChangeParam(this.pageNumber, false);
-        /*
-        for (
-          var i = (this.pageNumber - 1) * this.pageSize;
-          i < Math.min(this.pageNumber * this.pageSize, this.item.itemCount);
-          i++
-        ) {
-          selectedItems.push(this.item.items[i]);
-        }
-        this.pageItems = selectedItems;
-        this.pageCount =
-          this.item.itemCount % this.pageSize == 0
-            ? parseInt(this.item.itemCount / this.pageSize, 10)
-            : parseInt(this.item.itemCount / this.pageSize, 10) + 1;
-            */
       }
 
       this.itemName = this.item.name;
@@ -1160,7 +1152,7 @@ export default {
           }
         }
       } else {
-        //load items:
+        this.loadingItems = true;
         var apiUrl =
           this.appConfig.$api_url +
           "/api/artifacts/itemsof/" +
@@ -1177,9 +1169,8 @@ export default {
         }).then(
           (result) => {
             this.pageItems = result.data;
-            this.$router.push(
-              "/items/" + this.item.friendlyUrl + "/pageno/" + pageNumber
-            );
+            this.loadingItems = false;
+
             if (routerChange) {
               if (pageNumber == 1) {
                 this.$router.push("/items/" + this.item.friendlyUrl);
@@ -1191,6 +1182,7 @@ export default {
             }
           },
           (error) => {
+            this.loadingItems = false;
             this.errorMsg = axiosErrorHandler.handle(error);
           }
         );
