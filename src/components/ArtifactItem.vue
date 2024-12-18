@@ -18,7 +18,9 @@
           <v-card-text>
             <router-link :to="`/items/${item.parentFriendlyUrl}`">
               <v-img
-                :src="`${item.parentExternalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
+                :src="`${item.parentExternalNormalSizeImageUrl
+                  .replace('/norm/', '/thumb/')
+                  .replace('/orig/', '/thumb/')}`"
                 :alt="`${item.parentName}`"
                 max-width="200px"
                 class="grey lighten-2 clickable coverImage"
@@ -97,7 +99,9 @@
                   :to="`/items/${item.parentFriendlyUrl}/${item.previousItemFriendlyUrl}`"
                 >
                   <v-img
-                    :src="`${item.prevItemExternalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
+                    :src="`${item.prevItemExternalNormalSizeImageUrl
+                      .replace('/norm/', '/thumb/')
+                      .replace('/orig/', '/thumb/')}`"
                     alt="قبلی"
                     max-width="100px"
                     class="grey lighten-2 clickable coverImage"
@@ -127,7 +131,9 @@
                   :to="`/items/${item.parentFriendlyUrl}/${item.nextItemFriendlyUrl}`"
                 >
                   <v-img
-                    :src="`${item.nextItemExternalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
+                    :src="`${item.nextItemExternalNormalSizeImageUrl
+                      .replace('/norm/', '/thumb/')
+                      .replace('/orig/', '/thumb/')}`"
                     alt="بعدی"
                     max-width="100px"
                     class="grey lighten-2 clickable coverImage"
@@ -260,7 +266,10 @@
 
                   <a
                     v-if="item.item.images[0].srcUrl == null"
-                    :href="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/orig/')}`"
+                    :href="`${item.item.images[0].externalNormalSizeImageUrl.replace(
+                      '/norm/',
+                      '/orig/'
+                    )}`"
                     target="_blank"
                   >
                     <v-tooltip bottom>
@@ -300,7 +309,10 @@
                     </v-tooltip>
                   </a>
                   <a
-                    :href="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/orig/')}`"
+                    :href="`${item.item.images[0].externalNormalSizeImageUrl.replace(
+                      '/norm/',
+                      '/orig/'
+                    )}`"
                     target="_blank"
                   >
                     <v-tooltip bottom>
@@ -315,7 +327,10 @@
                 </v-card>
               </v-flex>
               <a
-                :href="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/orig/')}`"
+                :href="`${item.item.images[0].externalNormalSizeImageUrl.replace(
+                  '/norm/',
+                  '/orig/'
+                )}`"
                 target="_blank"
               >
                 <v-img
@@ -332,13 +347,14 @@
                   ref="image"
                 />
               </a>
-              
             </v-tab-item>
             <v-tab-item :value="`tab-2`">
               <v-card v-if="item != null">
                 <v-card-text>
                   <v-img
-                    :src="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
+                    :src="`${item.item.images[0].externalNormalSizeImageUrl
+                      .replace('/norm/', '/thumb/')
+                      .replace('/orig/', '/thumb/')}`"
                     :alt="`${item.item.name}`"
                     max-width="200px"
                     class="grey lighten-2 coverImage"
@@ -488,6 +504,9 @@
                         </tbody>
                       </v-simple-table>
                     </td>
+                  </tr>
+                  <tr>
+                    <td><p style="margin-top: 200px"></p></td>
                   </tr>
                 </tbody>
               </v-simple-table>
@@ -682,7 +701,9 @@
               <v-card v-if="item != null">
                 <v-card-text>
                   <v-img
-                    :src="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
+                    :src="`${item.item.images[0].externalNormalSizeImageUrl
+                      .replace('/norm/', '/thumb/')
+                      .replace('/orig/', '/thumb/')}`"
                     :alt="`${item.item.name}`"
                     max-width="200px"
                     class="grey lighten-2 coverImage"
@@ -779,7 +800,11 @@
                     outlined
                     rounded
                   ></v-textarea>
-                  <v-btn text v-on:click="insertCroppedImage = true" v-if="checkPermission('artifact', 'modify')">
+                  <v-btn
+                    text
+                    v-on:click="insertCroppedImage = true"
+                    v-if="checkPermission('artifact', 'modify')"
+                  >
                     درج برش <v-icon>crop</v-icon>
                   </v-btn>
                   <v-btn text v-on:click="saveNewNote('private')">
@@ -794,7 +819,9 @@
                       <v-card>
                         <cropper
                           classname="cropper"
-                          :src="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
+                          :src="`${item.item.images[0].externalNormalSizeImageUrl
+                            .replace('/norm/', '/thumb/')
+                            .replace('/orig/', '/thumb/')}`"
                           :stencil-props="{ aspectRatio: 10 / 12 }"
                           @change="cropperCoordinatesChanged"
                         ></cropper>
@@ -832,7 +859,9 @@
               <v-card v-if="item != null">
                 <v-card-text>
                   <v-img
-                    :src="`${item.item.images[0].externalNormalSizeImageUrl.replace('/norm/', '/thumb/').replace('/orig/', '/thumb/')}`"
+                    :src="`${item.item.images[0].externalNormalSizeImageUrl
+                      .replace('/norm/', '/thumb/')
+                      .replace('/orig/', '/thumb/')}`"
                     :alt="`${item.item.name}`"
                     max-width="200px"
                     class="grey lighten-2 coverImage"
