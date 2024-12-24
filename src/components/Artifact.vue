@@ -926,8 +926,9 @@ export default {
       } else {
         apiUrl =
           this.appConfig.$api_url +
-          "/api/artifacts/secure/" +
-          this.$route.params.friendlyUrl;
+          "/api/artifacts/secure/limited/" +
+          this.$route.params.friendlyUrl +
+          "/21";
         if (this.$route.params.tag != null) {
           apiUrl += "/filteritemsbytag/" + this.$route.params.tag;
           if (this.$route.params.value != null) {
