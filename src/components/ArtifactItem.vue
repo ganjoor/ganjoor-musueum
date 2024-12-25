@@ -347,6 +347,135 @@
                   ref="image"
                 />
               </a>
+
+              <v-simple-table>
+                <tbody>
+                  <tr v-for="tag in item.formattedTags" :key="tag.id">
+                    <td
+                      v-if="
+                        tag.friendlyUrl != null &&
+                        (tag.tagType == 2 ||
+                          tag.tagType == 3 ||
+                          tag.tagType == 5)
+                      "
+                    >
+                      <router-link :to="getTagLink(tag)">
+                        {{ tag.name }}
+                      </router-link>
+                    </td>
+                    <td
+                      v-if="
+                        tag.friendlyUrl == null ||
+                        (tag.tagType != 2 &&
+                          tag.tagType != 3 &&
+                          tag.tagType != 5)
+                      "
+                    >
+                      {{ tag.name }}
+                    </td>
+                    <td v-if="checkPermission('tag', 'modify')">
+                      <v-btn text icon v-on:click="editTag(tag)">
+                        <v-icon>edit</v-icon>
+                      </v-btn>
+                      <v-btn text icon v-on:click="addTag(tag)">
+                        <v-icon>add</v-icon>
+                      </v-btn>
+                      <v-btn text icon v-on:click="moveTag(tag, 'up')">
+                        <v-icon>arrow_drop_up</v-icon>
+                      </v-btn>
+                      <v-btn text icon v-on:click="moveTag(tag, 'down')">
+                        <v-icon>arrow_drop_down</v-icon>
+                      </v-btn>
+                    </td>
+                    <td>
+                      <v-simple-table>
+                        <tbody>
+                          <tr v-for="value in tag.values" :key="value.id">
+                            <td
+                              v-if="
+                                value.friendlyUrl != null &&
+                                (tag.tagType == 2 || tag.tagType == 3)
+                              "
+                            >
+                              <router-link :to="getTagValueLink(value, tag)">
+                                {{ value.value }}
+                              </router-link>
+                            </td>
+                            <td
+                              v-if="
+                                value.friendlyUrl == null &&
+                                (tag.tagType == 2 || tag.tagType == 3)
+                              "
+                            >
+                              {{ value.value }}
+                            </td>
+                            <td
+                              v-if="
+                                tag.tagType != 2 &&
+                                tag.tagType != 3 &&
+                                tag.tagType != 4
+                              "
+                              v-html="value.value"
+                            ></td>
+                            <td
+                              v-if="tag.tagType == 4"
+                              class="ltrvalue"
+                              v-html="value.value"
+                            ></td>
+
+                            <td
+                              v-if="tag.tagType == 1 || tag.tagType == 3"
+                              class="btnedttagvalue"
+                            >
+                              <a :href="value.valueSupplement" target="_blank">
+                                <v-btn text icon color="primary">
+                                  <v-icon>open_in_new</v-icon>
+                                </v-btn>
+                              </a>
+                            </td>
+                            <td
+                              v-if="checkPermission('artifact', 'edittag')"
+                              class="btnedttagvalue"
+                            >
+                              <v-btn
+                                text
+                                icon
+                                v-on:click="editTagValue(value, tag)"
+                              >
+                                <v-icon>edit</v-icon>
+                              </v-btn>
+                              <v-btn
+                                text
+                                icon
+                                v-on:click="removeTagValue(value)"
+                              >
+                                <v-icon>delete</v-icon>
+                              </v-btn>
+                              <v-btn
+                                text
+                                icon
+                                v-on:click="moveValue(value, 'up')"
+                              >
+                                <v-icon>arrow_drop_up</v-icon>
+                              </v-btn>
+                              <v-btn
+                                text
+                                icon
+                                v-on:click="moveValue(value, 'down')"
+                              >
+                                <v-icon>arrow_drop_down</v-icon>
+                              </v-btn>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </v-simple-table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p style="margin-top: 200px"></p></td>
+                  </tr>
+                </tbody>
+              </v-simple-table>
             </v-tab-item>
             <v-tab-item :value="`tab-2`">
               <v-card v-if="item != null">
