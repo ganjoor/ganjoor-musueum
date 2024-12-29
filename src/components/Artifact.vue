@@ -1748,12 +1748,14 @@ export default {
       return "";
     },
     showCoverImage() {
-      if (this.item != null) {
+      if (this.pageItems != null) {
+        var coverFiendlyUrl =
+          "p" +
+          (this.item.coverItemIndex + 1)
+            .toString()
+            .padStart(this.pageItems[0].friendlyUrl.length - 1, "0");
         this.$router.push(
-          "/items/" +
-            this.item.friendlyUrl +
-            "/" +
-            this.item.items[this.item.coverItemIndex].friendlyUrl
+          "/items/" + this.item.friendlyUrl + "/" + coverFiendlyUrl
         );
       }
     },
