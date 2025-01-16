@@ -903,7 +903,7 @@ export default {
           if (this.$route.params.value != null) {
             apiUrl += "/" + this.$route.params.value;
           }
-        } else {
+        } else if (this.$route.params.friendlyUrl == "ai") {
           apiUrl =
             this.appConfig.$api_url +
             "/api/artifacts/limited/" +
@@ -926,9 +926,16 @@ export default {
       } else {
         apiUrl =
           this.appConfig.$api_url +
-          "/api/artifacts/secure/limited/" +
-          this.$route.params.friendlyUrl +
-          "/21";
+          "/api/artifacts/secure/" +
+          this.$route.params.friendlyUrl;
+        if (this.$route.params.friendlyUrl == "ai") {
+          apiUrl =
+            this.appConfig.$api_url +
+            "/api/artifacts/secure/limited/" +
+            this.$route.params.friendlyUrl +
+            "/21";
+        }
+
         if (this.$route.params.tag != null) {
           apiUrl += "/filteritemsbytag/" + this.$route.params.tag;
           if (this.$route.params.value != null) {
