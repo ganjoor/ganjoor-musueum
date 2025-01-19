@@ -789,6 +789,26 @@
             </v-layout>
           </v-container>
         </v-card>
+
+        <v-card>
+          <div class="text-center">
+            <v-flex v-if="loadingItems" xs12>
+              <v-card dark color="secondary">
+                <v-progress-circular indeterminate></v-progress-circular>
+              </v-card>
+            </v-flex>
+            <v-pagination
+              v-model="pageNumber"
+              :length="pageCount"
+              total-visible="5"
+              circle
+              prev-icon="mdi-menu-left"
+              next-icon="mdi-menu-right"
+              @input="pageNumberChanged"
+            ></v-pagination>
+          </div>
+        </v-card>
+        <p style="margin-top: 20px"></p>
       </v-flex>
     </v-layout>
   </v-container>
