@@ -324,6 +324,51 @@
                       <span>مشاهدهٔ تصویر با اندازهٔ اصلی</span>
                     </v-tooltip>
                   </a>
+                  <v-tooltip
+                    bottom
+                    v-if="checkPermission('artifact', 'modify')"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        text
+                        icon
+                        color="white"
+                        v-on="on"
+                        v-on:click="editingName = !editingName"
+                      >
+                        <v-icon>edit</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>ویرایش عنوان</span>
+                    <v-dialog v-model="editingName" width="500">
+                      <v-card>
+                        <v-card-text>
+                          <v-text-field
+                            label="نام"
+                            v-model="itemName"
+                          ></v-text-field>
+                        </v-card-text>
+                        <v-progress-linear
+                          v-if="longProcessInDialogs"
+                          indeterminate
+                        ></v-progress-linear>
+                        <v-divider></v-divider>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="primary" @click="onEditNameOKClicked()"
+                            >تأیید</v-btn
+                          >
+                          <v-btn
+                            color="secondary"
+                            text
+                            @click="editingName = false"
+                            >انصراف</v-btn
+                          >
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </v-tooltip>
                 </v-card>
               </v-flex>
               <a
@@ -1148,6 +1193,8 @@ export default {
       longProcessOnGoing: true,
       insertCroppedImage: false,
       coordinates: { width: 0, height: 0, left: 0, top: 0 },
+      editingName: false,
+      itemName: "",
     };
   },
   mounted() {
@@ -1230,6 +1277,7 @@ export default {
       }
 
       this.item = result.data;
+      this.itemName = this.item.item.name;
       document.title =
         "گنجینهٔ گنجور - " +
         this.item.parentName +
@@ -1319,6 +1367,30 @@ export default {
           }
         );
       }
+    },
+    onEditNameOKClicked() {
+      this.item.item.name = this.itemName;
+      this.errorMsg = "";
+      this.longProcessInDialogs = true;
+      axios({
+        method: "PUT",
+        url: this.appConfig.$api_url + "/api/artifacts/item",
+        data: this.item.item,
+        headers: {
+          authorization: "bearer " + this.userInfo.token,
+          "content-type": "application/json",
+        },
+      }).then(
+        () => {
+          this.longProcessInDialogs = false;
+          this.editingName = false;
+        },
+        (error) => {
+          this.longProcessInDialogs = false;
+          this.editingName = false;
+          this.errorMsg = axiosErrorHandler.handle(error);
+        }
+      );
     },
     addTag(rTag) {
       this.tagObject = rTag;
