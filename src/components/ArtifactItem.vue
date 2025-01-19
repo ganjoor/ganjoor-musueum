@@ -380,7 +380,18 @@
               >
                 <v-img
                   v-if="imageAngle == 0"
-                  :src="`${item.item.images[0].externalNormalSizeImageUrl}`"
+                  :src="`${
+                    item.item.images[0].imageWidth <= 1024 &&
+                    item.item.images[0].imageHeight <= 1024
+                      ? item.item.images[0].externalNormalSizeImageUrl.replace(
+                          '/norm/',
+                          '/orig/'
+                        )
+                      : item.item.images[0].externalNormalSizeImageUrl.replace(
+                          '/orig/',
+                          '/norm/'
+                        )
+                  }`"
                   :alt="`${item.item.name}`"
                   class="grey lighten-2 clickable coverImage"
                 >
@@ -517,7 +528,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td><p style="margin-top: 200px"></p></td>
+                    <td><p style="margin-top: 300px"></p></td>
                   </tr>
                 </tbody>
               </v-simple-table>

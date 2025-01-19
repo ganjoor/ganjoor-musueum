@@ -808,7 +808,7 @@
             ></v-pagination>
           </div>
         </v-card>
-        <p style="margin-top: 20px"></p>
+        <p style="margin-top: 200px"></p>
       </v-flex>
     </v-layout>
   </v-container>
