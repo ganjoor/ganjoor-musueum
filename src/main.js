@@ -6,7 +6,6 @@ import { routes } from "./routes";
 import App from './App.vue';
 import vuetify from './plugins/vuetify';
 import { config } from './config';
-import VueAnalytics from 'vue-analytics'
 
 
 
@@ -18,11 +17,6 @@ const router = new VueRouter({
 
 
 Vue.use(VueRouter)
-
-Vue.use(VueAnalytics, {
-    id: 'UA-63626-15',
-    router
-})
 
 Vue.config.productionTip = true;
 
