@@ -387,10 +387,7 @@
                           '/norm/',
                           '/orig/'
                         )
-                      : item.item.images[0].externalNormalSizeImageUrl.replace(
-                          '/orig/',
-                          '/norm/'
-                        )
+                      : item.item.images[0].externalNormalSizeImageUrl
                   }`"
                   :alt="`${item.item.name}`"
                   class="grey lighten-2 clickable coverImage"
@@ -1288,6 +1285,17 @@ export default {
       }
 
       this.item = result.data;
+      if (
+        this.item.item.images[0].normalSizeImageStoredFileName.indexOf(
+          "norm"
+        ) != -1
+      ) {
+        this.item.item.images[0].externalNormalSizeImageUrl =
+          this.item.item.images[0].externalNormalSizeImageUrl.replace(
+            "orig",
+            "norm"
+          );
+      }
       this.itemName = this.item.item.name;
       document.title =
         "گنجینهٔ گنجور - " +
