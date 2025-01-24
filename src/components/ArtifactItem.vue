@@ -119,7 +119,7 @@
                 <router-link
                   :to="`/items/${item.parentFriendlyUrl}/${item.previousItemFriendlyUrl}`"
                 >
-                  قبلی
+                  <v-icon>mdi-chevron-right</v-icon>
                 </router-link>
               </v-card-text>
             </v-card>
@@ -151,7 +151,7 @@
                 <router-link
                   :to="`/items/${item.parentFriendlyUrl}/${item.nextItemFriendlyUrl}`"
                 >
-                  بعدی
+                  <v-icon>mdi-chevron-left</v-icon>
                 </router-link>
               </v-card-text>
             </v-card>

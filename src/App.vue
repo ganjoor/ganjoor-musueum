@@ -8,7 +8,7 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>
-              <router-link to="/">خانه</router-link>
+              <router-link to="/">گنجینهٔ گنجور</router-link>
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -19,11 +19,19 @@
     <v-app-bar color="cyan" app dark fixed>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title id="logo">
-        <router-link to="/">گنجینهٔ گنجور</router-link>
+        <router-link to="/" title="گنجینهٔ گنجور"
+          ><v-icon>mdi-home</v-icon></router-link
+        >
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-text-field hide-details append-icon="mdi-magnify" @click:append="searchIcon" @keydown.enter="searchIcon"
-        v-model="searchText" single-line></v-text-field>
+      <v-text-field
+        hide-details
+        append-icon="mdi-magnify"
+        @click:append="searchIcon"
+        @keydown.enter="searchIcon"
+        v-model="searchText"
+        single-line
+      ></v-text-field>
     </v-app-bar>
 
     <v-container>
@@ -41,7 +49,9 @@
             </v-btn>
           </a>
         </template>
-        <span>نحوهٔ پیشنهاد اضافه شدن تصاویر جدید از اینستاگرام و سایر منابع</span>
+        <span
+          >نحوهٔ پیشنهاد اضافه شدن تصاویر جدید از اینستاگرام و سایر منابع</span
+        >
       </v-tooltip>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
