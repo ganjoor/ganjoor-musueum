@@ -317,6 +317,11 @@
                       <v-simple-table>
                         <tbody>
                           <tr v-for="value in tag.values" :key="value.id">
+                            <td v-if="tag.tagType == 8">
+                              <router-link :to="`${value.friendlyUrl}`">
+                                - {{ tag.value }}
+                              </router-link>
+                            </td>
                             <td
                               v-if="
                                 tag.friendlyUrl != null &&
@@ -337,7 +342,8 @@
                                     value.friendlyUrl == null)) ||
                                 (tag.tagType != 2 &&
                                   tag.tagType != 3 &&
-                                  tag.tagType != 4)
+                                  tag.tagType != 4 &&
+                                  tag.tagType != 8)
                               "
                               v-html="value.value"
                             ></td>
@@ -358,7 +364,10 @@
                               </a>
                             </td>
                             <td
-                              v-if="checkPermission('artifact', 'edittag')"
+                              v-if="
+                                tag.tagType != 8 &&
+                                checkPermission('artifact', 'edittag')
+                              "
                               class="btnedttagvalue"
                             >
                               <v-btn
