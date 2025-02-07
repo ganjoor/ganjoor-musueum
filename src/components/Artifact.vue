@@ -317,9 +317,14 @@
                       <v-simple-table>
                         <tbody>
                           <tr v-for="value in tag.values" :key="value.id">
-                            <td v-if="tag.tagType == 8">
+                            <td v-if="tag.tagType == 8 && value.value != ''">
                               <router-link :to="`${value.friendlyUrl}`">
-                                - {{ tag.value }}
+                                {{ value.value }}
+                              </router-link>
+                            </td>
+                            <td v-if="tag.tagType == 8 && value.value == ''">
+                              <router-link :to="`${value.friendlyUrl}`">
+                                {{ tag.name }}
                               </router-link>
                             </td>
                             <td
