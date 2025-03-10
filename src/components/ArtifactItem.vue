@@ -369,6 +369,23 @@
                       </v-card>
                     </v-dialog>
                   </v-tooltip>
+                  <v-tooltip
+                    bottom
+                    v-if="checkPermission('artifact', 'modify')"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        text
+                        icon
+                        color="white"
+                        v-on="on"
+                        v-on:click="relaceImage()"
+                      >
+                        <v-icon>refresh</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>جایگزینی</span>
+                  </v-tooltip>
                 </v-card>
               </v-flex>
               <a
@@ -1961,6 +1978,34 @@ export default {
         n +
         "/mode/2up"
       );
+    },
+    relaceImage(){
+      var input = document.createElement('input');
+input.type = 'file';
+
+input.onchange = e => { 
+  var file = e.target.files[0]; 
+  this.errorMsg = '';
+                const data = new FormData();
+                data.append('file', file);
+
+                axios({
+                    method: "PUT", "url": this.appConfig.$api_url + "/api/images/replace/" + this.item.item.images[0].id, "data": data
+                    ,
+                    "headers":
+                    {
+                        "content-type": "multipart/form-data",
+                        "authorization": "bearer " + this.userInfo.token
+                    }
+                }).then(() => {
+                  this.errorMsg = 'آپلود شد.';
+
+                }, error => {
+                    this.errorMsg = axiosErrorHandler.handle(error);
+                });
+}
+
+input.click();
     },
     rotate(angle) {
       if (angle == 0) {
