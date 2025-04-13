@@ -26,7 +26,7 @@ Vue.use(TrackingPlugin, {
     router, // REQUIRED
     id: "1", // Optional
     status: "",
-    debug: true // Keep enabled during development
+    debug: false // Keep enabled during development
 });
 
 new Vue({

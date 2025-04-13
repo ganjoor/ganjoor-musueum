@@ -3,12 +3,14 @@ export default {
     const config = {
       siteId: options.id || "1",
       defaultStatus: options.status || "active",
-      debug: options.debug || false
+      debug: options.debug || false,
+      titleCheckMaxWait: 2000, // Max 2 seconds wait for title
+      titleCheckInterval: 100   // Check every 100ms
     };
 
     const log = (...args) => config.debug && console.log('[Tracker]', ...args);
 
-    // 1. Embedded tracking code (from tracker.js)
+    // 1. Embedded tracking code
     const initializeTracking = () => {
       if (window.kntrTracking) return;
 
@@ -70,24 +72,44 @@ export default {
       };
     };
 
-    // 2. Tracking function
-    const track = (status = config.defaultStatus) => {
-      if (!window.kntrTracking?.startTracking) {
-        log('Tracking API not initialized');
-        return false;
+    // 2. Tracking function with title verification
+    const trackWithTitleCheck = (status, initialTitle = null) => {
+      const startTime = Date.now();
+      const currentTitle = initialTitle || document.title;
+
+      // If this is the initial load and title already contains Persian text
+      if (initialTitle === null && /[\u0600-\u06FF]/.test(currentTitle)) {
+        window.kntrTracking.startTracking(config.siteId, status);
+        log('Tracked (initial Persian title):', status, 'Title:', currentTitle);
+        return;
       }
-      window.kntrTracking.startTracking(config.siteId, status);
-      return true;
+
+      // For subsequent navigation
+      const checkTitle = () => {
+        const elapsed = Date.now() - startTime;
+        const newTitle = document.title;
+
+        if (newTitle !== currentTitle || elapsed > config.titleCheckMaxWait) {
+          window.kntrTracking.startTracking(config.siteId, status);
+          log('Tracked (after', elapsed, 'ms):', status, 'Title:', newTitle);
+        } else {
+          setTimeout(checkTitle, config.titleCheckInterval);
+        }
+      };
+
+      checkTitle();
     };
 
     // 3. Initialization
     initializeTracking();
-    track('initial_load');
+
+    // Track initial load immediately (title already set in index.html)
+    trackWithTitleCheck('initial_load', document.title);
 
     // 4. Router integration
     if (options.router) {
       options.router.afterEach((to) => {
-        track(`route:${to.path}`);
+        trackWithTitleCheck(`route:${to.path}`);
       });
     }
   }
