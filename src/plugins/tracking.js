@@ -77,7 +77,6 @@ export default {
         return false;
       }
       window.kntrTracking.startTracking(config.siteId, status);
-      log('Tracked:', status);
       return true;
     };
 
@@ -90,7 +89,6 @@ export default {
       options.router.afterEach((to) => {
         track(`route:${to.path}`);
       });
-      log('Router tracking enabled');
     }
   }
 };
