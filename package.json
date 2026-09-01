@@ -7,8 +7,8 @@
     "name": ""
   },
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@mdi/font": "^3.9.97",
+    "cross-env": "^7.0.3",
     "@vue/cli-plugin-babel": "^3.12.1",
     "@vue/cli-plugin-eslint": "^4.2.3",
     "@vue/cli-service": "^4.2.3",
